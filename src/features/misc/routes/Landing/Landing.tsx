@@ -1,9 +1,9 @@
-import { DoubleHeader } from "../../components/DoubleHeader";
+import { HeaderSearch } from "../../components/HeaderSearch";
 
 export const Landing = () => {
   return (
     <>
-      <DoubleHeader />
+      <HeaderSearch />
       Hello world!
     </>
   );

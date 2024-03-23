@@ -1,68 +1,86 @@
 import { Card } from "@mantine/core";
-import './RegisterForm.scss';
+import "./RegisterForm.scss";
+import * as yup from "yup";
+import { Form } from "@/components/Form/Form";
+import { InputField } from "@/components/Form/InputField/InputField";
+import { RouterLink } from "@/components/Link/RouterLink";
 
-export const RegisterForm = () => {
+const schema = yup.object().shape({
+  email: yup.string().required("Se requiere el email").email("Ingresa un email válido"),
+  password: yup
+    .string()
+    .required("Se requiere la contraseña")
+    .min(6, "La contraseña debe tener al menos 6 carácteres"),
+  repeatPassword: yup
+    .string()
+    .required("Ingresa la contraseña nuevamente")
+    .min(6, "La contraseña debe tener al menos 6 carácteres")
+    .oneOf([yup.ref("password")], "Las contraseñas no coinciden"),
+});
+
+type RegisterValues = {
+  email: string;
+  password: string;
+  repeatPassword: string;
+};
+
+type RegisterFormProps = {
+  onSuccess: () => void;
+};
+
+export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
   return (
     <div className="section-register">
       <div className="row">
         <div className="register">
           <div className="container">
-            <Card shadow="sm" padding="lg" radius="md" className="register__form">
-              <form className="form">
-                <div className="u-margin-bottom--small">
-                  <h2 className="register__header">Registro</h2>
-                </div>
-
-                <div className="form__group">
-                  <label htmlFor="email" className="form__label">
-                    Email
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    className="form__input"
-                    type="email"
-                    required
-                  />
-                </div>
-
-                <section>
-                  <div className="form__group">
-                    <label htmlFor="password" className="form__label">
-                      Contraseña
-                    </label>
-                    <input
-                      id="password"
-                      name="password"
-                      className="form__input"
-                      type="password"
-                      required
+            <Card
+              shadow="sm"
+              padding="lg"
+              radius="md"
+              className="register__form"
+            >
+              <div className="u-margin-bottom--small">
+                <h2 className="register__header">Registro</h2>
+              </div>
+              <Form<RegisterValues, typeof schema>
+                onSubmit={async (values) => {
+                  onSuccess();
+                }}
+                schema={schema}
+              >
+                {({ register, formState }) => (
+                  <>
+                    <InputField
+                      type="email"
+                      label="Email"
+                      error={formState.errors["email"]}
+                      registration={register("email")}
                     />
-                  </div>
-
-                  <div className="form__group">
-                    <label htmlFor="password" className="form__label">
-                      Repetir Contraseña
-                    </label>
-                    <input
-                      id="passwordConfirm"
-                      name="passwordConfirm"
-                      className="form__input"
+                    <InputField
                       type="password"
-                      required
-                    />
-                  </div>
-                </section>
-
-                <div className="u-margin-bottom--small">
-                  <button type="submit" className="btn btn--blue">
-                    Continuar
-                  </button>
-                </div>
-              </form>
-              <div>
+                      label="Contraseña"
+                      error={formState.errors["password"]}
+                      registration={register("password")}
+                    ></InputField>
+                    <InputField
+                      type="password"
+                      label="Repetir Contraseña"
+                      error={formState.errors["repeatPassword"]}
+                      registration={register("repeatPassword")}
+                    ></InputField>
+                    <div>
+                      <button className="btn btn--blue" type="submit">
+                        Continuar
+                      </button>
+                    </div>
+                  </>
+                )}
+              </Form>
+              <div className="u-margin-top--small">
                 <h3 className="login">
-                  ¿Ya tienes una cuenta? <a className="form__link">Inicia sesión</a>
+                  ¿Ya tienes una cuenta?{" "}
+                  <RouterLink label="Inicia sesión" to="/auth/login" />
                 </h3>
               </div>
             </Card>

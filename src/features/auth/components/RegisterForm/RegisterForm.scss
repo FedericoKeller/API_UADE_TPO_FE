@@ -72,57 +72,7 @@
   }
 }
 
-.form {
-  &__group {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 1.5rem;
-  }
 
-  &__input {
-    font-family: inherit;
-    padding: 0.5rem 1rem;
-    border-radius: 2px;
-    border: none;
-    border-bottom: 3px solid transparent;
-    transition: all 0.3s;
-    margin-bottom: 0.5rem;
-
-    &:focus {
-      outline: none;
-      border-bottom: 3px solid green;
-    }
-
-    &:focus:invalid {
-      border-bottom: 3px solid orange;
-    }
-  }
-
-  &__link {
-    color: var(--desaturated-blue);
-    font-size: 0.8rem;
-    font-weight: 500;
-  }
-
-  &__password {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.7rem;
-
-    .form__label {
-      margin: 0;
-    }
-  }
-
-  &__label {
-    text-align: left;
-    font-size: 0.8rem;
-    margin-left: 1rem;
-    margin-bottom: 0.7rem;
-    color: var(--very-dark-blue);
-  }
-}
 
 .btn {
   text-decoration: none;

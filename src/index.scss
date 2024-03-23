@@ -26,6 +26,8 @@
   --desaturated-blue: hsl(235, 45%, 61%);
   --pale-blue: hsl(236, 100%, 87%);
 
+  --error: #f44336;
+
   --border-radius: 0.9rem;
 }
 
@@ -81,4 +83,10 @@ body {
 
 .u-margin-top--huge {
   margin-top: 10rem !important;
+}
+
+.error {
+  color: var(--error);
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
 }

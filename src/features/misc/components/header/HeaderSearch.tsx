@@ -1,18 +1,16 @@
-import { Autocomplete, Group, Burger, rem } from '@mantine/core';
+import { Autocomplete, Group, Burger, rem, Input } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
-import { MantineLogo } from '@mantinex/mantine-logo';
-import { Netlist } from '../icons/Netlist.icon';
+import { Netlist } from '../../icons/Netlist.icon';
 import "./HeaderSearch.scss";
 
 const links = [
-  { link: '/about', label: 'Features' },
-  { link: '/pricing', label: 'Pricing' },
-  { link: '/learn', label: 'Learn' },
-  { link: '/community', label: 'Community' },
+  { link: '/watchlist', label: 'Watchlist' },
+  { link: '/signin', label: 'Sign in' },
+  
 ];
 
-export function HeaderSearch() {
+export const HeaderSearch = () => {
   const [opened, { toggle }] = useDisclosure(false);
 
   const items = links.map((link) => (
@@ -29,15 +27,11 @@ export function HeaderSearch() {
   return (
     <header className="header">
       <div className="inner">
-        <Group>
+        <Group className='icon'>
+          <Netlist width={40} height={40}/>
           <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
-          <Netlist width={24} height={24}/>
         </Group>
-
         <Group>
-          <Group ml={50} gap={5} className="links" visibleFrom="sm">
-            {items}
-          </Group>
           <Autocomplete
             className="search"
             placeholder="Search"
@@ -45,6 +39,11 @@ export function HeaderSearch() {
             data={['React', 'Angular', 'Vue', 'Next.js', 'Riot.js', 'Svelte', 'Blitz.js']}
             visibleFrom="xs"
           />
+        </Group>
+        <Group>
+          <Group ml={50} gap={5} className="links" visibleFrom="sm">
+            {items}
+          </Group>
         </Group>
       </div>
     </header>

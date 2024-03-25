@@ -1,6 +1,3 @@
-import * as React from "react"
-
-
 export const Netlist = (props: any) => (  //Esto tengo que verlo
   <svg
     xmlns="http://www.w3.org/2000/svg"

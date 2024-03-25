@@ -4,7 +4,6 @@ export const Landing = () => {
   return (
     <>
       <HeaderSearch />
-      Hello world!
     </>
   );
 };

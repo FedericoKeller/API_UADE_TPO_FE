@@ -2,6 +2,7 @@ import { Autocomplete, Group, Burger, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
 import { MantineLogo } from '@mantinex/mantine-logo';
+import { Netlist } from '../icons/Netlist.icon';
 import "./HeaderSearch.scss";
 
 const links = [
@@ -30,7 +31,7 @@ export function HeaderSearch() {
       <div className="inner">
         <Group>
           <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
-          <MantineLogo size={28} />
+          <Netlist width={24} height={24}/>
         </Group>
 
         <Group>

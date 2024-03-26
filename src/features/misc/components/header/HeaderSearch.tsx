@@ -31,7 +31,7 @@ export const HeaderSearch = () => {
           <Netlist width={40} height={40}/>
           <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
         </Group>
-        <Group>
+        <Group className='searchBar'>
           <Autocomplete
             className="search"
             placeholder="Search"

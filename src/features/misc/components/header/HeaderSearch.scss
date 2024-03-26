@@ -4,7 +4,7 @@
 
 .header {
   height: 56px;
-  margin-bottom: 120px;
+  margin-bottom: auto;
   background-color: var(--mantine-color-body);
   border-bottom: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
   padding-left: var(--mantine-spacing-md);
@@ -13,8 +13,21 @@
 }
 
 
+.searchBar {
+  width: 40rem;
+  padding-right: 100px;
+  @include respond(phone) {
+    width: 30rem;
+
+  } 
+}
+
 .search {
   width: 40rem;
+  @include respond(phone) {
+    
+
+  } 
 
 }
 

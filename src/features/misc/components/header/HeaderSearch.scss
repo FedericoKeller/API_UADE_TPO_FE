@@ -1,7 +1,6 @@
 @use "../../../../../mixins" as *;
 
 
-
 .header {
   height: 56px;
   margin-bottom: auto;
@@ -13,31 +12,44 @@
 }
 
 
-.searchBar {
-  width: 40rem;
-  padding-right: 100px;
-  @include respond(phone) {
-    width: 30rem;
 
-  } 
+.netlist-landing .search-bar.m-4081bf90 {
+  padding-top: 5px;
+  display: block !important;
+  @include respond(phone) {
+    padding-top: 10px;
+  }
+  @include respond(tab-port) {
+    padding-top: 15px;
+  }
+  @include respond(tab-land) {
+    padding-top: 10px;
+  }
 }
 
-.search {
-  width: 40rem;
-  @include respond(phone) {
-    
 
-  } 
-
+.search-bar {
+  flex-grow: 1;
 }
+
+
 
 .icon {
   padding-right: 3rem;
+  // flex-direction: row;
+  // flex-shrink: 0;
+  // flex-wrap: nowrap;
+
   @include respond(phone) {
-    padding: 0.5rem;
-    width: 100%;
-  } 
+    padding-right: 0rem;
+  }
+
 }
+
+.burger-container {
+  padding: 0 3rem;
+}
+
 
 
 .inner {
@@ -49,7 +61,7 @@
 }
 
 .link {
-  display: block;
+  //display: block;
   line-height: 1;
   padding: 8px 12px;
   border-radius: var(--mantine-radius-sm);

@@ -7,11 +7,11 @@ import { SingleCard } from "../../components/card/SingleCard";
 
 export const Landing = () => {
   return (
-    <>
+    <div className="netlist-landing">
       <HeaderSearch /> 
-      {/* <HeroHeader /> */}
+      <HeroHeader />
       {/* <Footer /> */}
       {/* <CardsCarousel/> */}
-    </>
+    </div>
   );
 };

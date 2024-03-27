@@ -1,4 +1,4 @@
-import { Autocomplete, Group, Burger, rem, Input } from '@mantine/core';
+import { Autocomplete, Group, Burger, rem, Input, rgba } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
 import { Netlist } from '../../icons/Netlist.icon';
@@ -29,15 +29,14 @@ export const HeaderSearch = () => {
       <div className="inner">
         <Group className='icon'>
           <Netlist width={40} height={40}/>
-          <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
+          <Burger className='burger-container' opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
         </Group>
-        <Group className='searchBar'>
+        <Group className='search-bar'>
           <Autocomplete
             className="search"
             placeholder="Search"
             leftSection={<IconSearch style={{ width: rem(16), height: rem(16) }} stroke={1.5} />}
             data={['React', 'Angular', 'Vue', 'Next.js', 'Riot.js', 'Svelte', 'Blitz.js']}
-            visibleFrom="xs"
           />
         </Group>
         <Group>
@@ -47,5 +46,7 @@ export const HeaderSearch = () => {
         </Group>
       </div>
     </header>
+    
+
   );
 }

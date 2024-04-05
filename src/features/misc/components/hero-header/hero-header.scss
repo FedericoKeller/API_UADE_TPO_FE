@@ -1,0 +1,77 @@
+.hero-root {
+  width: 1300px;
+  height: 500px;
+  background-color: #11284b;
+  background-size: cover;
+  background-position: center;
+  background-image: linear-gradient(250deg, rgba(130, 201, 30, 0) 0%, #001020 70%),
+    url(../../../../../src/assets/images/Netlist-background.jpg);
+  padding-top: calc(var(--mantine-spacing-xl) * 3);
+  padding-bottom: calc(var(--mantine-spacing-xl) * 3);
+  }
+  
+  .hero-inner {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 200px;
+  
+    @media (max-width: 62em) {
+      flex-direction: column;
+    }
+  }
+  
+  .image {
+    @media (max-width: 62em) {
+      display: none;
+    }
+  }
+  
+  .hero-content {
+    padding-top: calc(var(--mantine-spacing-xl) * 2);
+    padding-bottom: calc(var(--mantine-spacing-xl) * 2);
+    margin-right: calc(var(--mantine-spacing-xl) * 3);
+  
+    @media (max-width: 62em) {
+      margin-right: 0;
+    }
+  }
+  
+  .hero-title {
+    color: var(--mantine-color-white);
+    font-family:
+      Greycliff CF,
+      var(--mantine-font-family);
+    font-weight: 900;
+    line-height: 1.05;
+    max-width: 500px;
+    font-size: 48px;
+  
+    @media (max-width: 62em) {
+      max-width: 100%;
+      font-size: 34px;
+      line-height: 1.15;
+    }
+  }
+  
+  .hero-description {
+    color: var(--mantine-color-white);
+    opacity: 0.75;
+    max-width: 500px;
+  
+    @media (max-width: 62em) {
+      max-width: 100%;
+    }
+  }
+  
+  .control {
+    padding-left: 50px;
+    padding-right: 50px;
+    font-family:
+      Greycliff CF,
+      var(--mantine-font-family);
+    font-size: 22px;
+  
+    @media (max-width: 62em) {
+      width: 100%;
+    }
+  }

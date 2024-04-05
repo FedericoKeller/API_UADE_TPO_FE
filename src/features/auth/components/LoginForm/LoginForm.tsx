@@ -1,9 +1,9 @@
 import * as yup from 'yup';
 import "./LoginForm.scss";
 import { Card } from "@mantine/core";
-import { Form } from "@/components/Form/Form";
-import { InputField } from "@/components/Form/InputField/InputField";
-import { RouterLink } from "@/components/Link/RouterLink";
+import { Form } from "@/components/Form";
+import { InputField } from "@/components/Form";
+import { RouterLink } from "@/components/RouterLink";
 
 const schema = yup.object().shape({
   email: yup.string().required("Se requiere el email").email("Ingresa un email válido"),
@@ -34,6 +34,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                   onSuccess();
                 }}
                 schema={schema}
+                options={ { defaultValues: { email: 'test@test.com', password: '123456' } } }
               >
                 {({ register, formState }) => (
                   <>

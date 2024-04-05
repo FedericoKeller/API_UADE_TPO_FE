@@ -1,10 +1,11 @@
 @use "../../../../../mixins" as *;
 
 
-
 .header {
+  width: 100%;
+  position: fixed;
   height: 56px;
-  margin-bottom: 120px;
+  margin-bottom: auto;
   background-color: var(--mantine-color-body);
   border-bottom: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
   padding-left: var(--mantine-spacing-md);
@@ -12,31 +13,52 @@
   
 }
 
-
 .search {
-  width: 40rem;
+  flex-grow: 1;
+  width: 100%;
+
+  @include respond(tab-land) {
+    max-width: 40rem;
+  }
+
+  @include respond(tab-port) {
+    max-width: 150px;
+  }
+
+  @include respond(phone) {
+    max-width: 200px;
+  }
+
 
 }
+
+
 
 .icon {
   padding-right: 3rem;
+
   @include respond(phone) {
-    padding: 0.5rem;
-    width: 100%;
-  } 
+    padding-right: 0rem;
+  }
+
+}
+
+.burger-container {
+  padding-right: 3rem;
 }
 
 
-.inner {
+
+.header-inner {
+  width: 100%;
   height: 56px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: left;
 
 }
 
 .link {
-  display: block;
   line-height: 1;
   padding: 8px 12px;
   border-radius: var(--mantine-radius-sm);

@@ -4,3 +4,4 @@ export const theme = createTheme({
   fontFamily: 'Rubik, sans-serif',
   defaultRadius: 'md',
 });
+

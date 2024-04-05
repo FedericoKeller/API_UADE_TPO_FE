@@ -1,40 +1,52 @@
-import * as yup from 'yup';
-import "./LoginForm.scss";
 import { Card } from "@mantine/core";
-import { Form } from "@/components/Form";
-import { InputField } from "@/components/Form";
+import "./RegisterForm.scss";
+import * as yup from "yup";
+import { Form, InputField } from "@/components/Form";
 import { RouterLink } from "@/components/RouterLink";
 
 const schema = yup.object().shape({
   email: yup.string().required("Se requiere el email").email("Ingresa un email válido"),
-  password: yup.string().required("Se requiere la contraseña"),
+  password: yup
+    .string()
+    .required("Se requiere la contraseña")
+    .min(6, "La contraseña debe tener al menos 6 carácteres"),
+  repeatPassword: yup
+    .string()
+    .required("Ingresa la contraseña nuevamente")
+    .min(6, "La contraseña debe tener al menos 6 carácteres")
+    .oneOf([yup.ref("password")], "Las contraseñas no coinciden"),
 });
 
-type LoginValues = {
+type RegisterValues = {
   email: string;
   password: string;
+  repeatPassword: string;
 };
 
-type LoginFormProps = {
+type RegisterFormProps = {
   onSuccess: () => void;
 };
 
-export const LoginForm = ({ onSuccess }: LoginFormProps) => {
+export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
   return (
-    <div className="section-login">
+    <div className="section-register">
       <div className="row">
-        <div className="login">
+        <div className="register">
           <div className="container">
-            <Card shadow="sm" padding="lg" radius="md" className="login__form">
+            <Card
+              shadow="sm"
+              padding="lg"
+              radius="md"
+              className="register__form"
+            >
               <div className="u-margin-bottom--small">
-                <h2 className="login__header">Iniciar sesión</h2>
+                <h2 className="register__header">Registro</h2>
               </div>
-              <Form<LoginValues, typeof schema>
+              <Form<RegisterValues, typeof schema>
                 onSubmit={async (values) => {
                   onSuccess();
                 }}
                 schema={schema}
-                options={ { defaultValues: { email: 'test@test.com', password: '123456' } } }
               >
                 {({ register, formState }) => (
                   <>
@@ -49,9 +61,13 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                       label="Contraseña"
                       error={formState.errors["password"]}
                       registration={register("password")}
-                    >
-                      <RouterLink label="¿Olvidaste tu contraseña?" to="/" />
-                    </InputField>
+                    ></InputField>
+                    <InputField
+                      type="password"
+                      label="Repetir Contraseña"
+                      error={formState.errors["repeatPassword"]}
+                      registration={register("repeatPassword")}
+                    ></InputField>
                     <div>
                       <button className="btn btn--blue" type="submit">
                         Continuar
@@ -61,9 +77,9 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                 )}
               </Form>
               <div className="u-margin-top--small">
-                <h3 className="register">
-                  ¿No tienes una cuenta?{" "}
-                  <RouterLink label="Regístrate" to="/auth/register" />
+                <h3 className="login">
+                  ¿Ya tienes una cuenta?{" "}
+                  <RouterLink label="Inicia sesión" to="/auth/login" />
                 </h3>
               </div>
             </Card>

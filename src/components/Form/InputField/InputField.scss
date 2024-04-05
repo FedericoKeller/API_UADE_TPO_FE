@@ -1,0 +1,28 @@
+.form {
+  &__input {
+    font-family: inherit;
+    padding: 0.5rem 1rem;
+    border-radius: 2px;
+    border: none;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+    width: 100%;
+    grid-column: span 2;
+
+    &:focus {
+      outline: none;
+      border-bottom: 3px solid green;
+    }
+
+    &:focus:invalid {
+      border-bottom: 3px solid orange;
+    }
+  }
+}
+
+.error {
+  color: var(--error);
+  font-size: 0.8rem;
+  margin-top: 0.2rem;
+  align-self: flex-start;
+}

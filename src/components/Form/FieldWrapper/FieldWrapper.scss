@@ -1,0 +1,20 @@
+.form {
+  &__group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  &__label {
+    font-size: 0.8rem;
+    color: var(--very-dark-blue);
+    text-align: left;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+
+    &--text {
+        grid-column: span 2;
+    }
+  }
+}

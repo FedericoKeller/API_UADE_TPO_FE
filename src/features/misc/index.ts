@@ -1,1 +1,1 @@
-export * from './routes/Landing/Landing';
+export { Landing } from './routes/Landing';

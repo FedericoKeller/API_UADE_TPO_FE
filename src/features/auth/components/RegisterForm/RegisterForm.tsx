@@ -1,9 +1,8 @@
 import { Card } from "@mantine/core";
 import "./RegisterForm.scss";
 import * as yup from "yup";
-import { Form } from "@/components/Form/Form";
-import { InputField } from "@/components/Form/InputField/InputField";
-import { RouterLink } from "@/components/Link/RouterLink";
+import { Form, InputField } from "@/components/Form";
+import { RouterLink } from "@/components/RouterLink";
 
 const schema = yup.object().shape({
   email: yup.string().required("Se requiere el email").email("Ingresa un email válido"),

@@ -26,12 +26,10 @@ export const HeaderSearch = () => {
 
   return (
     <header className="header">
-      <div className="inner">
+      <div className="header-inner">
         <Group className='icon'>
           <Netlist width={40} height={40}/>
           <Burger className='burger-container' opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
-        </Group>
-        <Group className='search-bar'>
           <Autocomplete
             className="search"
             placeholder="Search"

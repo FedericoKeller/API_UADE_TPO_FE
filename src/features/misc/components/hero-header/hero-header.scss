@@ -1,14 +1,16 @@
-.root {
-    background-color: #11284b;
-    background-size: cover;
-    background-position: center;
-    background-image: linear-gradient(250deg, rgba(130, 201, 30, 0) 0%, #001020 70%),
-      url(../../../../../src/assets/images/Netlist-background.jpg);
-    padding-top: calc(var(--mantine-spacing-xl) * 3);
-    padding-bottom: calc(var(--mantine-spacing-xl) * 3);
+.hero-root {
+  width: 1300px;
+  height: 500px;
+  background-color: #11284b;
+  background-size: cover;
+  background-position: center;
+  background-image: linear-gradient(250deg, rgba(130, 201, 30, 0) 0%, #001020 70%),
+    url(../../../../../src/assets/images/Netlist-background.jpg);
+  padding-top: calc(var(--mantine-spacing-xl) * 3);
+  padding-bottom: calc(var(--mantine-spacing-xl) * 3);
   }
   
-  .inner {
+  .hero-inner {
     display: flex;
     justify-content: space-between;
     margin-bottom: 200px;
@@ -24,7 +26,7 @@
     }
   }
   
-  .content {
+  .hero-content {
     padding-top: calc(var(--mantine-spacing-xl) * 2);
     padding-bottom: calc(var(--mantine-spacing-xl) * 2);
     margin-right: calc(var(--mantine-spacing-xl) * 3);
@@ -34,7 +36,7 @@
     }
   }
   
-  .title {
+  .hero-title {
     color: var(--mantine-color-white);
     font-family:
       Greycliff CF,
@@ -51,7 +53,7 @@
     }
   }
   
-  .description {
+  .hero-description {
     color: var(--mantine-color-white);
     opacity: 0.75;
     max-width: 500px;

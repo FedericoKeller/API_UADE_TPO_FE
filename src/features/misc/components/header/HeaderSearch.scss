@@ -2,6 +2,8 @@
 
 
 .header {
+  width: 100%;
+  position: fixed;
   height: 56px;
   margin-bottom: auto;
   background-color: var(--mantine-color-body);
@@ -11,34 +13,29 @@
   
 }
 
-
-
-.netlist-landing .search-bar.m-4081bf90 {
-  padding-top: 5px;
-  display: block !important;
-  @include respond(phone) {
-    padding-top: 10px;
-  }
-  @include respond(tab-port) {
-    padding-top: 15px;
-  }
-  @include respond(tab-land) {
-    padding-top: 10px;
-  }
-}
-
-
-.search-bar {
+.search {
   flex-grow: 1;
+  width: 100%;
+
+  @include respond(tab-land) {
+    max-width: 40rem;
+  }
+
+  @include respond(tab-port) {
+    max-width: 150px;
+  }
+
+  @include respond(phone) {
+    max-width: 200px;
+  }
+
+
 }
 
 
 
 .icon {
   padding-right: 3rem;
-  // flex-direction: row;
-  // flex-shrink: 0;
-  // flex-wrap: nowrap;
 
   @include respond(phone) {
     padding-right: 0rem;
@@ -47,21 +44,21 @@
 }
 
 .burger-container {
-  padding: 0 3rem;
+  padding-right: 3rem;
 }
 
 
 
-.inner {
+.header-inner {
+  width: 100%;
   height: 56px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: left;
 
 }
 
 .link {
-  //display: block;
   line-height: 1;
   padding: 8px 12px;
   border-radius: var(--mantine-radius-sm);

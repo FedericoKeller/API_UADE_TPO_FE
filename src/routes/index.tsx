@@ -1,14 +1,18 @@
 import { useRoutes } from 'react-router-dom';
 import { publicRoutes } from './public';
 import { Landing } from '@/features/misc';
-import { Login } from '@/features/auth/routes/Login';
+import { protectedRoutes } from './protected';
+import { useAuth } from '@/lib/auth';
 
 
 export const AppRoutes = () => {
-  
-  const commonRoutes = [{ path: '/', element: <Landing /> }, { path: '/login', element: <Login/> }]; //Falta hacer el link al /login al boton
+  const auth = useAuth();
 
-  const element = useRoutes([...commonRoutes, ...publicRoutes]);
+  const commonRoutes = [{ path: '/', element: <Landing /> }];
+  
+  const routes = auth.user ? protectedRoutes : publicRoutes;
+
+  const element = useRoutes([...routes, ...commonRoutes]);
 
   return <>{element}</>;
 };

@@ -4,6 +4,7 @@ import { Card } from "@mantine/core";
 import { Form } from "@/components/Form";
 import { InputField } from "@/components/Form";
 import { RouterLink } from "@/components/RouterLink";
+import { useAuth } from '@/lib/auth';
 
 const schema = yup.object().shape({
   email: yup.string().required("Se requiere el email").email("Ingresa un email válido"),
@@ -20,6 +21,8 @@ type LoginFormProps = {
 };
 
 export const LoginForm = ({ onSuccess }: LoginFormProps) => {
+  const { login, isLoggingIn } = useAuth();
+  
   return (
     <div className="section-login">
       <div className="row">
@@ -31,6 +34,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
               </div>
               <Form<LoginValues, typeof schema>
                 onSubmit={async (values) => {
+                  await login(values);
                   onSuccess();
                 }}
                 schema={schema}

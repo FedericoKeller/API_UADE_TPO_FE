@@ -1,5 +1,6 @@
 @use "../mixins" as *;
 @use "./assets/fonts/rubik.scss" as *;
+@import '@mantine/notifications/styles.css';
 
 *,
 *::before,

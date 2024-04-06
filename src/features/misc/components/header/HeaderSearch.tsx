@@ -3,25 +3,19 @@ import { useDisclosure } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
 import { Netlist } from '../../icons/Netlist.icon';
 import "./HeaderSearch.scss";
+import { RouterLink } from '@/components/RouterLink';
 
 const links = [
   { link: '/watchlist', label: 'Watchlist' },
-  { link: '/signin', label: 'Sign in' },
+  { link: '/auth/login', label: 'Sign in' },
   
 ];
 
 export const HeaderSearch = () => {
   const [opened, { toggle }] = useDisclosure(false);
 
-  const items = links.map((link) => (
-    <a
-      key={link.label}
-      href={link.link}
-      className="link"
-      onClick={(event) => event.preventDefault()}
-    >
-      {link.label}
-    </a>
+  const items = links.map((link, index) => (
+    <RouterLink key={index} label={link.label} to={link.link} />
   ));
 
   return (

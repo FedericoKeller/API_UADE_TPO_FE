@@ -23,13 +23,14 @@ img {
   padding: 0.5rem 0.5rem 0.75rem;
   clip-path: polygon(100% 0, 100% 100%, 50% 85%, 0 100%, 0% 0%);
   transition: var(--transition);
+  cursor: pointer;
 }
 
 .front {
   transition: 250ms;
 
   .name {
-    animation: filmName 250ms forwards;
+    text-align: center;
   }
 
   .thumbnail {
@@ -46,86 +47,6 @@ img {
   }
 }
 
-.back {
-  opacity: 0;
-  display: none;
-  position: absolute;
-  top: 54%;
-  left: 0;
-  right: 0;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  transform: translateY(35%);
 
-  .description {
-    color: #fff;
-    font-size: 0.7rem;
-    text-wrap: pretty;
-  }
-}
 
-.background {
-  background: #234;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: -1;
-  transform: scale(0.2, 0.9);
-  opacity: 0;
-  border-radius: var(--border-radius);
-}
 
-.film:hover {
-  .saved {
-    transform: translate(-125%, -50%);
-  }
-
-  .front {
-    transform: translateY(-30%) scale(0.8);
-  }
-
-  .stats {
-    opacity: 0;
-  }
-
-  .back {
-    opacity: 1;
-    display: flex;
-    transform: translateX(0);
-    transition: transform 250ms ease, opacity 150ms linear;
-
-  }
-
-  .background {
-    transition: var(--transition), opacity 100ms linear;
-    opacity: 1;
-    transform: scale(1.35, 1.2) translateY(3%);
-  }
-}
-
-@keyframes filmName {
-  0% {
-    text-align: left;
-    opacity: 1;
-  }
-
-  20% {
-    text-align: left;
-    opacity: 0;
-  }
-
-  50% {
-    text-align: center;
-    opacity: 0;
-    transform: scale(1.2);
-  }
-
-  100% {
-    text-align: center;
-    opacity: 1;
-    transform: scale(1.2);
-  }
-}

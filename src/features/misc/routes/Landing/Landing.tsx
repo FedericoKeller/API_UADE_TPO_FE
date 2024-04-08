@@ -6,9 +6,11 @@ import "./Landing.scss";
 
 import { Carousel } from "@mantine/carousel";
 import { CardsCarousel } from "../../components/carousel/CardsCarousel";
+import { Container } from "@mantine/core";
 export const Landing = () => {
   return (
-    <div className="netlist-landing">
+    <Container>
+      <div className="netlist-landing">
       <HeaderSearch />
         <main className="main u-margin-bottom--big">
           <section className="hero-header">
@@ -19,5 +21,6 @@ export const Landing = () => {
         <CardsCarousel />
       <Footer />
     </div>
+    </Container>
   );
 };

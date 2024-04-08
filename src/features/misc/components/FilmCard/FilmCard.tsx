@@ -1,8 +1,13 @@
 import './FilmCard.scss';
 import { Rating } from '@mantine/core';
 
+interface CardProps {
+  image : string;
+  title : string;
+}
 
-export const FilmCard = () => {
+
+export const FilmCard = ({ image, title} :CardProps) => {
     return (
         <div
         className="film"

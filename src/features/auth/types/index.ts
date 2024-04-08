@@ -1,7 +1,21 @@
+interface Film {
+  id: string;
+  title: string;
+  director?: string;
+  year?: number;
+}
+
+interface List {
+  id: string;
+  title: string;
+  films: Film[];
+}
+
 export type AuthUser = {
     id: string;
     email: string;
     role: 'ADMIN' | 'USER';
+    lists: List[];
   };
   
   export type UserResponse = {

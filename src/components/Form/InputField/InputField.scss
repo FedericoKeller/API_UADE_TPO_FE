@@ -1,22 +1,18 @@
 .form {
-  &__input {
-    font-family: inherit;
-    padding: 0.5rem 1rem;
-    border-radius: 2px;
-    border: none;
-    border-bottom: 3px solid transparent;
-    transition: all 0.3s;
+
+  &__group {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    grid-column: span 2;
+    margin-bottom: 2rem;
+  }
 
-    &:focus {
-      outline: none;
-      border-bottom: 3px solid green;
-    }
-
-    &:focus:invalid {
-      border-bottom: 3px solid orange;
-    }
+  &__label {
+    font-size: 0.8rem;
+    color: var(--very-dark-blue);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 

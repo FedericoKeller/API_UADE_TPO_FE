@@ -50,13 +50,13 @@ export const CardsCarousel = () => {
   ));
 
   return (
-    <div className='carousel-column'>
+    <Container className='carousel-column'>
       <div><Title order={2} className="carousel-title"> Trending </Title>
       </div>
       <div className='carousel-slides'>
         <Carousel
           height="100%"
-          slideSize={{ base: '50%', sm: '20%' }}
+          slideSize={{ base: '22%', sm: '22%' }}
           slideGap={{ base: rem(0.6), sm: 's' }}
           align="start"
           slidesToScroll={mobile ? 4 : 1}
@@ -64,7 +64,7 @@ export const CardsCarousel = () => {
           {slides}
         </Carousel>
       </div>    
-    </div>
+    </Container>
     
   );
 }

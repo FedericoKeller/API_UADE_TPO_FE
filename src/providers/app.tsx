@@ -1,11 +1,10 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import * as React from "react";
-import { AuthProvider } from "@/lib/auth";
-import { QueryClientProvider } from "react-query";
 import { queryClient } from "@/lib/react-query";
 import { Button, Loader } from "@mantine/core";
 import { ErrorBoundary } from "react-error-boundary";
 import { Notifications } from "@mantine/notifications";
+import { QueryClientProvider } from "@tanstack/react-query";
 
 const ErrorFallback = () => {
   return (
@@ -40,9 +39,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <QueryClientProvider client={queryClient}>
         <Notifications />
-          <AuthProvider>
             <Router>{children}</Router>
-          </AuthProvider>
         </QueryClientProvider>
       </ErrorBoundary>
     </React.Suspense>

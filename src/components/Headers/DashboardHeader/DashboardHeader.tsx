@@ -1,11 +1,12 @@
 "use client";
 
-import { ActionIcon, Box, Drawer, Stack, TextInput } from "@mantine/core";
+import { ActionIcon, Box, Drawer, Stack, Tooltip } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconSearch, IconSettings } from "@tabler/icons-react";
+import { IconLogout, IconSettings } from "@tabler/icons-react";
 import "./DashboardHeader.scss";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { Logo } from "@/components/Logo";
+import { useLogout } from "@/lib/auth";
 
 interface Props {
   burger?: React.ReactNode;
@@ -13,21 +14,29 @@ interface Props {
 
 export const DashboardHeader = ({ burger }: Props) => {
   const [opened, { close, open }] = useDisclosure(false);
+  const logout = useLogout();
+
+  const onLogoutClick = () => {
+      logout.mutate({});
+  }
 
   return (
     <header className="dashboardHeader">
       {burger && burger}
       <Logo />
       <Box style={{ flex: 1 }} />
-      <TextInput
-        placeholder="Search"
-        variant="filled"
-        leftSection={<IconSearch size="0.8rem" />}
-        style={{}}
-      />
+   
+      <Tooltip label="Configuración">
       <ActionIcon onClick={open} variant="subtle">
         <IconSettings size="1.25rem" />
       </ActionIcon>
+      </Tooltip>
+
+      <Tooltip label="Cerrar sesión">
+      <ActionIcon onClick={onLogoutClick} variant="subtle">
+        <IconLogout size="1.25rem" />
+      </ActionIcon>
+      </Tooltip>
 
       <Drawer
         opened={opened}

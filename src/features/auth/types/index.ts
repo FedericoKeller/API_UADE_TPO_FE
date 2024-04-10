@@ -6,7 +6,7 @@ interface Film {
 }
 
 interface List {
-  id: string;
+  id: number;
   title: string;
   films: Film[];
 }

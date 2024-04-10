@@ -4,7 +4,7 @@ import { DashboardContent } from '../components/DashboardContent';
 
 export const WelcomeBack = () => {
   return (
-    <DashboardLayout title="Dashboard">
+    <DashboardLayout title="Bienvenido">
       <DashboardContent />
     </DashboardLayout>
   );

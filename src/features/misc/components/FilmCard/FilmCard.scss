@@ -1,8 +1,10 @@
-img {
+.img {
   max-width: 100%;
 }
 
 .film {
+  display: flex;
+  align-items: flex-start;
   position: relative;
   width: 12.5rem;
 }

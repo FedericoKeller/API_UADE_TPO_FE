@@ -5,17 +5,17 @@ import'./SingleCard.scss';
 interface CardProps {
     image: string;
     title: string;
-    category: string;
+
   }
 
 
-export const SingleCard = ({ image, title, category }: CardProps) => {
+export const SingleCard = ({ image, title}: CardProps) => {
   return (
     <Paper shadow="md" p="xl" radius="md" className="card" style={{ backgroundImage: `url(${image})` }}
     >
       <div>
         <Text className="category" size="xs">
-          {category}
+          banana
         </Text>
         <Title order={3} className="title">
           {title}

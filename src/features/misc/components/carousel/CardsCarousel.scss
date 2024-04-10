@@ -1,4 +1,6 @@
-// .card {
+@use "../../../../../mixins" as *;
+
+// .FilmCard {
 //     height: 440px;
 //     display: flex;
 //     flex-direction: column;
@@ -7,6 +9,37 @@
 //     background-size: cover;
 //     background-position: center;
 //   }
+
+
+.carousel-column {
+  max-width: 1300px;
+
+  @include respond(tab-land) {
+      width: 100%;
+    }
+  
+    @include respond(tab-port) {
+      width: 100%;
+    }
+  
+    @include respond(phone) {
+      width: 100%;
+    }
+}
+
+
+.carousel-slides {
+  width: 100%;
+}
+
+
+// .carousel-title {
+//   display: flex;
+//   justify-content: flex-start;
+//   align-items: center;
+//   padding-bottom: 30px;
+// }
+
 
 .title {
   font-family: Greycliff CF, sans-serif;

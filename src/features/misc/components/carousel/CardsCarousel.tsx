@@ -1,7 +1,6 @@
 import { Carousel } from '@mantine/carousel';
 import { useMediaQuery } from '@mantine/hooks';
-import { Paper, Text, Title, Button, useMantineTheme, rem, Container } from '@mantine/core';
-import { SingleCard} from '../card/SingleCard';
+import { Title, useMantineTheme, rem, Container } from '@mantine/core';
 import './CardsCarousel.scss';
 import { FilmCard } from '../FilmCard';
 

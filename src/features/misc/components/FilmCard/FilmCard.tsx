@@ -1,23 +1,35 @@
+import { useUser } from "@/lib/auth";
 import "./FilmCard.scss";
-import { Image, Rating } from "@mantine/core";
+import { Container, Image, UnstyledButton } from "@mantine/core";
+import { useNavigate } from "react-router-dom";
+import { Film } from "@/types/film.model";
 
-interface CardProps {
-  image: string;
-  title: string;
-}
+export const FilmCard = (props: Film) => {
+  const user = useUser();
+  const navigate = useNavigate();
+  const { title, poster_path } = props;
+  const IMAGE_URL = `https://image.tmdb.org/t/p/w500/${poster_path}`;
 
-export const FilmCard = ({ image, title }: CardProps) => {
+  const onSaveClick = () => {
+    console.log(user.data);
+
+    if (!user?.data) {
+      return navigate("/auth/login");
+    }
+
+    user.data.lists[0].films.push(props);
+  };
+
   return (
-    <div className="film">
-      <div className="saved">+</div>
-      <div className="front">
-        <Image className="thumbnail" src={image}/>
-        <h3 className="name">{title}</h3>
-        <div className="stats">
-          <p className="rating">4.5</p>
-          <Rating fractions={4} value={4.5} />
+      <div className="film">
+        <UnstyledButton className="saved" onClick={onSaveClick}>
+          +
+        </UnstyledButton>
+        <div className="front">
+          <Image className="thumbnail" src={IMAGE_URL} />
+
+          <h3 className="name">{title}</h3>
         </div>
       </div>
-    </div>
   );
 };

@@ -1,4 +1,4 @@
-import { initReactQueryAuth } from 'react-query-auth';
+import { configureAuth } from 'react-query-auth';
 
 import { Loader } from '@mantine/core';
 
@@ -19,11 +19,11 @@ async function handleUserResponse(data: UserResponse) {
   return user;
 }
 
-async function loadUser() {
-//   if (storage.getToken()) {
-//     const data = await getUser();
-//     return data;
-//   }
+async function userFn() {
+  if (storage.getToken()) {
+    const data = await getUser();
+    return data;
+  }
   return null;
 }
 
@@ -45,7 +45,7 @@ async function logoutFn() {
 }
 
 const authConfig = {
-  loadUser,
+  userFn,
   loginFn,
   registerFn,
   logoutFn,
@@ -56,7 +56,7 @@ const authConfig = {
   },
 };
 
-export const { AuthProvider, useAuth } = initReactQueryAuth<
+export const { useUser, useLogin, useRegister, useLogout } = configureAuth<
   AuthUser | null,
   unknown,
   LoginCredentialsDTO,

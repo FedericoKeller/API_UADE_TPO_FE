@@ -1,4 +1,4 @@
-import { Autocomplete, Group, Burger, rem, Input, rgba } from '@mantine/core';
+import { Autocomplete, Group, Burger, rem } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
 import { Netlist } from '../../icons/Netlist.icon';

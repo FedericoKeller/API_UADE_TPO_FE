@@ -1,5 +1,5 @@
-import { useAuth } from "./auth";
 import * as React from "react";
+import { useUser } from "./auth";
 
 export enum ROLES {
   ADMIN = "ADMIN",
@@ -9,7 +9,7 @@ export enum ROLES {
 type RoleTypes = keyof typeof ROLES;
 
 export const useAuthorization = () => {
-  const { user } = useAuth();
+  const user  = useUser();
 
   if (!user) {
     throw Error("El usuario no existe!");
@@ -18,15 +18,15 @@ export const useAuthorization = () => {
   const checkAccess = React.useCallback(
     ({ allowedRoles }: { allowedRoles: RoleTypes[] }) => {
       if (allowedRoles && allowedRoles.length > 0) {
-        return allowedRoles?.includes(user.role);
+        return allowedRoles?.includes(user.data!.role);
       }
 
       return true;
     },
-    [user.role]
+    [user.data]
   );
 
-  return { checkAccess, role: user.role };
+  return { checkAccess, role: user.data?.role };
 };
 
 

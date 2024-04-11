@@ -3,7 +3,10 @@ import cx from 'clsx';
 
 
 export const theme = createTheme({
-  fontFamily: 'Rubik, sans-serif',
+  fontFamily: 'Rubik',
+  headings: {
+		fontFamily: 'Rubik, sans-serif',
+	},
   defaultRadius: 'md',
   components: {
     Container: Container.extend({

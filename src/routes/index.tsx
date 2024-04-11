@@ -7,7 +7,7 @@ import { useUser } from '@/lib/auth';
 
 export const AppRoutes = () => {
   const user = useUser();
-  console.log(user.data);
+
   const commonRoutes = [{ path: '/', element: <Landing /> }];
   
   const routes = user?.data ? protectedRoutes : publicRoutes;

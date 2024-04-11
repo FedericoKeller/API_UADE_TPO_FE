@@ -1,15 +1,4 @@
-interface Film {
-  id: string;
-  title: string;
-  director?: string;
-  year?: number;
-}
-
-interface List {
-  id: number;
-  title: string;
-  films: Film[];
-}
+import { List } from "@/types/list.model";
 
 export type AuthUser = {
     id: string;

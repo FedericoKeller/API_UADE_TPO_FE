@@ -79,7 +79,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
               <div className="u-margin-top--small">
                 <h3 className="login">
                   ¿Ya tienes una cuenta?{" "}
-                  <RouterLink label="Inicia sesión" to="/auth/login" />
+                  <RouterLink to="/auth/login" >Inicia sesión</RouterLink>
                 </h3>
               </div>
             </Card>

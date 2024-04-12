@@ -28,7 +28,6 @@ export const protectedRoutes = [
         { 
           path: '*', 
           element: <DashboardRoutes />,
-          
         },
       ],
     },

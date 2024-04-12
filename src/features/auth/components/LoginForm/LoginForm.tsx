@@ -1,13 +1,16 @@
-import * as yup from 'yup';
+import * as yup from "yup";
 import "./LoginForm.scss";
 import { Card } from "@mantine/core";
 import { Form } from "@/components/Form";
 import { InputField } from "@/components/Form";
 import { RouterLink } from "@/components/RouterLink";
-import { useLogin } from '@/lib/auth';
+import { useLogin } from "@/lib/auth";
 
 const schema = yup.object().shape({
-  email: yup.string().required("Se requiere el email").email("Ingresa un email válido"),
+  email: yup
+    .string()
+    .required("Se requiere el email")
+    .email("Ingresa un email válido"),
   password: yup.string().required("Se requiere la contraseña"),
 });
 
@@ -22,7 +25,7 @@ type LoginFormProps = {
 
 export const LoginForm = ({ onSuccess }: LoginFormProps) => {
   const login = useLogin();
-  
+
   return (
     <div className="section-login">
       <div className="row">
@@ -38,7 +41,9 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                   onSuccess();
                 }}
                 schema={schema}
-                options={ { defaultValues: { email: 'test@test.com', password: '123456' } } }
+                options={{
+                  defaultValues: { email: "test@test.com", password: "123456" },
+                }}
               >
                 {({ register, formState }) => (
                   <>
@@ -54,7 +59,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                       error={formState.errors["password"]}
                       registration={register("password")}
                     >
-                      <RouterLink label="¿Olvidaste tu contraseña?" to="/" />
+                      <RouterLink to="/">¿Olvidaste tu contraseña?</RouterLink>
                     </InputField>
                     <div>
                       <button className="btn btn--blue" type="submit">
@@ -67,7 +72,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
               <div className="u-margin-top--small">
                 <h3 className="register">
                   ¿No tienes una cuenta?{" "}
-                  <RouterLink label="Regístrate" to="/auth/register" />
+                  <RouterLink to="/auth/register">Regístrate</RouterLink>
                 </h3>
               </div>
             </Card>

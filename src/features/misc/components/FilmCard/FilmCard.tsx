@@ -1,35 +1,70 @@
 import { useUser } from "@/lib/auth";
-import "./FilmCard.scss";
-import { Container, Image, UnstyledButton } from "@mantine/core";
+import { Image, UnstyledButton } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { Film } from "@/types/film.model";
+import { IconCheck, IconPlus } from "@tabler/icons-react";
+import { useCallback, useEffect, useState } from "react";
 
-export const FilmCard = (props: Film) => {
+import "./FilmCard.scss";
+
+interface FilmCardProps {
+  film: Film;
+}
+
+export const FilmCard: React.FC<FilmCardProps> = ({ film }) => {
   const user = useUser();
   const navigate = useNavigate();
-  const { title, poster_path } = props;
+  const { title, poster_path, id } = film;
   const IMAGE_URL = `https://image.tmdb.org/t/p/w500/${poster_path}`;
 
-  const onSaveClick = () => {
-    console.log(user.data);
+  const isFilmIncluded = useCallback(
+    (id: number) => {
+      return user.data?.lists[0]?.films.some((film) => film.id === id);
+    },
+    [user.data]
+  );
 
-    if (!user?.data) {
-      return navigate("/auth/login");
+  const [filmState, setFilmState] = useState(isFilmIncluded(id));
+
+  const updateFilmState = useCallback(() => {
+    setFilmState(isFilmIncluded(id));
+  }, [id, isFilmIncluded]);
+
+  const toggleFilm = () => {
+    const index = user.data?.lists[0]?.films.findIndex(
+      (film) => film.id === id
+    ) as number;
+    if (index !== -1) {
+      user.data?.lists[0]?.films.splice(index, 1);
+    } else {
+      user.data?.lists[0]?.films.push(film);
     }
+    updateFilmState();
+  };
 
-    user.data.lists[0].films.push(props);
+  const userFilms = user.data?.lists[0]?.films;
+
+  useEffect(() => {
+    updateFilmState();
+  }, [userFilms, updateFilmState]);
+
+  const onSaveClick = () => {
+    if (!user?.data) {
+      navigate("/auth/login");
+    } else {
+      toggleFilm();
+    }
   };
 
   return (
-      <div className="film">
-        <UnstyledButton className="saved" onClick={onSaveClick}>
-          +
-        </UnstyledButton>
-        <div className="front">
-          <Image className="thumbnail" src={IMAGE_URL} />
-
-          <h3 className="name">{title}</h3>
-        </div>
+    <div className="film">
+      <UnstyledButton className="saved" onClick={onSaveClick}>
+        {filmState ? <IconCheck /> : <IconPlus />}
+      </UnstyledButton>
+      <div className="front">
+        <Image className="thumbnail" src={IMAGE_URL} />
+        <h3 className="name">{title}</h3>
       </div>
+    </div>
   );
 };

@@ -1,41 +1,52 @@
 import { useUser } from "@/lib/auth";
-import { Container, Image, UnstyledButton } from "@mantine/core";
+import { Image, UnstyledButton } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { Film } from "@/types/film.model";
 import { IconCheck, IconPlus } from "@tabler/icons-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import "./FilmCard.scss";
 
-export const FilmCard = (props: Film) => {
+interface FilmCardProps {
+  film: Film;
+}
+
+export const FilmCard: React.FC<FilmCardProps> = ({ film }) => {
   const user = useUser();
   const navigate = useNavigate();
-  const { title, poster_path, id } = props;
+  const { title, poster_path, id } = film;
   const IMAGE_URL = `https://image.tmdb.org/t/p/w500/${poster_path}`;
 
-  const isFilmIncluded = (id: number) => {
-    return user.data?.lists[0].films.some((film) => film.id === id);
-  };
+  const isFilmIncluded = useCallback(
+    (id: number) => {
+      return user.data?.lists[0]?.films.some((film) => film.id === id);
+    },
+    [user.data]
+  );
 
   const [filmState, setFilmState] = useState(isFilmIncluded(id));
 
-  const updateFilmState = () => {
+  const updateFilmState = useCallback(() => {
     setFilmState(isFilmIncluded(id));
-  };
+  }, [id, isFilmIncluded]);
 
   const toggleFilm = () => {
-    const index = user.data?.lists[0].films.findIndex((film) => film.id === id) as number;
+    const index = user.data?.lists[0]?.films.findIndex(
+      (film) => film.id === id
+    ) as number;
     if (index !== -1) {
-      user.data?.lists[0].films.splice(index, 1);
+      user.data?.lists[0]?.films.splice(index, 1);
     } else {
-      user.data?.lists[0].films.push(props);
+      user.data?.lists[0]?.films.push(film);
     }
     updateFilmState();
   };
 
+  const userFilms = user.data?.lists[0]?.films;
+
   useEffect(() => {
     updateFilmState();
-  }, [user.data?.lists[0].films]);
+  }, [userFilms, updateFilmState]);
 
   const onSaveClick = () => {
     if (!user?.data) {

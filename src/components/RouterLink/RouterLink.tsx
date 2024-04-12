@@ -1,24 +1,27 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./RouterLink.scss";
+import clsx from "clsx";
 
 type LinkProps = {
-  label: string;
   to: string;
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+  children: React.ReactNode;
+  className?: string;
 };
 
-export const RouterLink = (props: LinkProps) => {
-  const { label, to } = props;
+export const RouterLink = ({to, onClick, children, className}: LinkProps) => {
   const navigate = useNavigate();
 
   return (
-    <Link className="link" to={to} onClick={(ev) => {
+    <Link className={clsx("link", className)} to={to} onClick={(ev) => {
         ev.preventDefault();
         document.startViewTransition(() => {
+            onClick?.(ev);
             navigate(to);
           
         });
       }}>
-      {label}
+      {children}
     </Link>
   );
 };

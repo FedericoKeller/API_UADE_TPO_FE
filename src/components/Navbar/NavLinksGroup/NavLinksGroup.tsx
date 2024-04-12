@@ -4,6 +4,7 @@ import { useState } from 'react';
 import './NavLinksGroup.scss';
 import clsx from "clsx";
 import { useLocation } from 'react-router-dom';
+import { RouterLink } from '@/components/RouterLink';
 
 interface LinksGroupProps {
 	icon: React.FC<any>;
@@ -27,23 +28,21 @@ export function NavLinksGroup({
 	const [opened, setOpened] = useState(initiallyOpened || false);
 	const ChevronIcon = dir === 'ltr' ? IconChevronRight : IconChevronLeft;
 	const items = (hasLinks ? links : []).map((link) => (
-        <Text<'a'>
-          component="a"
+        <RouterLink
           className='navLink'
-          href={link.link}
+          to={link.link}
           key={link.label}
           onClick={(event) => event.preventDefault()}
         >
           {link.label}
-        </Text>
+        </RouterLink>
       ));
 
 	return (
 		<>
 			{link ? (
-				<Text<'a'>
-                    component="a"
-					href={link}
+				<RouterLink
+					to={link}
 					className={clsx("control", link === pathname && "activeControl")}
 				>
 					<Group gap={0} justify="space-between">
@@ -54,7 +53,7 @@ export function NavLinksGroup({
 							<Box ml="md">{label}</Box>
 						</Box>
 					</Group>
-				</Text>
+				</RouterLink>
 			) : (
 				<UnstyledButton
 					onClick={() => {

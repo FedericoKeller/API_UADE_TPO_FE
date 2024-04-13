@@ -4,55 +4,49 @@ import { HeroHeader } from "../../components/hero-header/hero-header";
 import "./Landing.scss";
 import { CardsCarousel } from "../../components/carousel/CardsCarousel";
 import { Container } from "@mantine/core";
-
-
-
-
-
-
-// export const Landing = () => {
-//   return (
-//       <div className="netlist-landing">
-//       <HeaderSearch />
-//       <Container size="responsive">
-//           {/* <main className="main"> */}
-//         <section className="hero-header">
-//           <HeroHeader />
-//         </section>
-//         <section className="trending-carousel">
-//           <CardsCarousel />
-//         </section>
-              
-//           {/* </main> */}
-//       </Container>
-      
-        
-//       <Footer />
-//     </div>
-
-//   );
-// };
-
+import { GENRES } from "@/config/mocks/genres.mock";
+import { MultiSelectValueRenderer } from "@/components/MultiSelectValueRenderer";
+import { useState } from "react";
+import { CardsGrid } from "../../components/grid/CardsGrid";
 
 export const Landing = () => {
+  const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
+
+  const handleGenreChange = (selectedGenres: number[]) => {
+    setSelectedGenres(selectedGenres);
+  };
+
+  const filteredGenres = GENRES.genres.filter((genre) =>
+    selectedGenres.includes(genre.id)
+  );
+
+  const genres =
+    filteredGenres?.length > 0
+      ? filteredGenres.map((genre) => <CardsGrid key={genre.id} genre={genre} />)
+      : GENRES.genres.map((genre) => <CardsCarousel key={genre.id} genre={genre} />);
+
   return (
-      <div className="netlist-landing">
+    <div className="netlist-landing">
       <HeaderSearch />
       <Container size="responsive">
-          {/* <main className="main"> */}
+        {/* <main className="main"> */}
         <Container size="responsive">
           <HeroHeader />
         </Container>
         <Container size="responsive">
-          <CardsCarousel />
+          <MultiSelectValueRenderer
+            onChange={handleGenreChange}
+            className="u-margin-top--small"
+            placeholder="Elige uno o más géneros para ver"
+            data={GENRES.genres}
+          />
+          {genres}
         </Container>
-              
-          {/* </main> */}
+
+        {/* </main> */}
       </Container>
-      
-        
+
       <Footer />
     </div>
-
   );
 };

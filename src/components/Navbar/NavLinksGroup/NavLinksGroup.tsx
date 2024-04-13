@@ -1,4 +1,4 @@
-import { Box, Collapse, Group, ThemeIcon, UnstyledButton, useDirection, Text } from '@mantine/core';
+import { Box, Collapse, Group, ThemeIcon, UnstyledButton, useDirection } from '@mantine/core';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 import { useState } from 'react';
 import './NavLinksGroup.scss';

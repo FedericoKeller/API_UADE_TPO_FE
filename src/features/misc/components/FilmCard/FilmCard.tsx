@@ -11,7 +11,7 @@ interface FilmCardProps {
   film: Film;
 }
 
-export const FilmCard: React.FC<FilmCardProps> = ({ film }) => {
+export const FilmCard = ({ film }: FilmCardProps) => {
   const user = useUser();
   const navigate = useNavigate();
   const { title, poster_path, id } = film;

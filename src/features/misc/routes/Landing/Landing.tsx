@@ -7,24 +7,23 @@ import { Container } from "@mantine/core";
 import { GENRES } from "@/config/mocks/genres.mock";
 import { MultiSelectValueRenderer } from "@/components/MultiSelectValueRenderer";
 import { useState } from "react";
+import { CardsGrid } from "../../components/grid/CardsGrid";
 
 export const Landing = () => {
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
 
   const handleGenreChange = (selectedGenres: number[]) => {
-    const currentGenres = selectedGenres?.length === 0 ? GENRES.genres.map(genre => genre.id) : selectedGenres;
-    setSelectedGenres(currentGenres);
+    setSelectedGenres(selectedGenres);
   };
 
   const filteredGenres = GENRES.genres.filter((genre) =>
     selectedGenres.includes(genre.id)
   );
 
-  const genres = filteredGenres.map((genre) => (
-    <Container key={genre.id} size="responsive">
-      <CardsCarousel genre={genre} />
-    </Container>
-  ));
+  const genres =
+    filteredGenres?.length > 0
+      ? filteredGenres.map((genre) => <CardsGrid key={genre.id} genre={genre} />)
+      : GENRES.genres.map((genre) => <CardsCarousel key={genre.id} genre={genre} />);
 
   return (
     <div className="netlist-landing">
@@ -34,13 +33,16 @@ export const Landing = () => {
         <Container size="responsive">
           <HeroHeader />
         </Container>
-        <MultiSelectValueRenderer
-          onChange={handleGenreChange}
-          className="u-margin-top--small"
-          placeholder="Elige uno o más géneros para ver"
-          data={GENRES.genres}
-        />
-        {genres}
+        <Container size="responsive">
+          <MultiSelectValueRenderer
+            onChange={handleGenreChange}
+            className="u-margin-top--small"
+            placeholder="Elige uno o más géneros para ver"
+            data={GENRES.genres}
+          />
+          {genres}
+        </Container>
+
         {/* </main> */}
       </Container>
 

@@ -1,5 +1,5 @@
 @use "../mixins" as *;
-@use "./assets/fonts/rubik.scss" as *;
+@use "./assets/fonts/inter.scss" as *;
 @import '@mantine/notifications/styles.css';
 @import '@mantine/carousel/styles.css';
 @import '@mantine/dates/styles.css'; //if using mantine date picker features
@@ -50,7 +50,6 @@ html {
 }
 
 body {
-  font-family: "Rubik", sans-serif;
   box-sizing: border-box;
   margin: 0;
 }

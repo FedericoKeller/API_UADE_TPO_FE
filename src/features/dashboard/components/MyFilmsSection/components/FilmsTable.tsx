@@ -14,12 +14,30 @@ import { useCustomTable } from "@/hooks/use-custom-table";
 import { MRT_Localization_ES } from "@/config/table";
 import { IconTrash } from "@tabler/icons-react";
 import { Film } from "@/types/film.model";
+import { modals } from "@mantine/modals";
 
 interface FilmsTableProps {
   films: Film[] | undefined;
+  handleDeleteFilm: (id: number) => void;
 }
 
-export const FilmsTable = ({ films }: FilmsTableProps) => {
+export const FilmsTable = ({ films, handleDeleteFilm }: FilmsTableProps) => {
+
+    const openDeleteModal = (id: number) =>
+        modals.openConfirmModal({
+          title: 'Borrar película',
+          centered: true,
+          children: (
+            <Text size="sm">
+              ¿Estás seguro de que deseas borrar esta película? Esta acción no se puede deshacer.
+            </Text>
+          ),
+          labels: { confirm: 'Borrar película', cancel: "Cancelar" },
+          confirmProps: { color: 'red' },
+          onCancel: () => modals.closeAll(),
+          onConfirm: () => handleDeleteFilm(id),
+        });
+
   const columns = useMemo<MRT_ColumnDef<Film>[]>(
     () => [
       {
@@ -88,7 +106,7 @@ export const FilmsTable = ({ films }: FilmsTableProps) => {
     renderRowActions: ({ row }) => (
       <Box style={{ display: "flex", flexWrap: "nowrap", gap: "8px" }}>
         <Tooltip position="bottom" label="Borrar película">
-          <ActionIcon color="red">
+          <ActionIcon color="red" onClick={() => openDeleteModal(row.original.id)}>
             <IconTrash />
           </ActionIcon>
         </Tooltip>

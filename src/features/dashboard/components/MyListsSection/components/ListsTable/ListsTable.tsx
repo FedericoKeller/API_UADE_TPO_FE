@@ -1,16 +1,36 @@
-import { ActionIcon, Box, Paper, Space, Tooltip } from "@mantine/core";
+import { ActionIcon, Box, Paper, Space, Tooltip, Text } from "@mantine/core";
 import { MantineReactTable, MRT_ColumnDef } from "mantine-react-table";
 import { useMemo } from "react";
 import { useCustomTable } from "@/hooks/use-custom-table";
 import { List } from "@/types/list.model";
-import { useUser } from "@/lib/auth";
 import { MRT_Localization_ES } from "@/config/table";
 import { IconSend, IconTrash } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
+import { modals } from "@mantine/modals";
 
-export const ListsTable = () => {
-  const { data, isError, isFetching, isLoading } = useUser();
+interface ListsTableProps {
+  data: List[] | undefined;
+  handleDeleteList: (id: number) => void;
+}
+
+export const ListsTable = ({ data, handleDeleteList }: ListsTableProps) => {
   const navigate = useNavigate();
+
+  const openDeleteModal = (id: number) =>
+    modals.openConfirmModal({
+      title: "Borrar lista",
+      centered: true,
+      children: (
+        <Text size="sm">
+          ¿Estás seguro de que deseas borrar esta lista? Esta acción no se puede
+          deshacer.
+        </Text>
+      ),
+      labels: { confirm: "Borrar lista", cancel: "Cancelar" },
+      confirmProps: { color: "red" },
+      onCancel: () => modals.closeAll(),
+      onConfirm: () => handleDeleteList(id),
+    });
 
   const columns = useMemo<MRT_ColumnDef<List>[]>(
     () => [
@@ -35,13 +55,8 @@ export const ListsTable = () => {
 
   const table = useCustomTable<List>({
     columns,
-    data: data?.lists ?? [],
-    rowCount: data?.lists?.length ?? 0,
-    state: {
-      isLoading,
-      showAlertBanner: isError,
-      showProgressBars: isFetching,
-    },
+    data: data ?? [],
+    rowCount: data?.length ?? 0,
     localization: MRT_Localization_ES,
     enableRowActions: true,
     positionActionsColumn: "last",
@@ -63,7 +78,10 @@ export const ListsTable = () => {
         </Tooltip>
         {row?.original.canDelete && (
           <Tooltip position="bottom" label="Borrar lista">
-            <ActionIcon color="red">
+            <ActionIcon
+              color="red"
+              onClick={() => openDeleteModal(row.original.id)}
+            >
               <IconTrash />
             </ActionIcon>
           </Tooltip>

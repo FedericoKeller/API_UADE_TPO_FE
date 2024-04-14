@@ -12,28 +12,52 @@ export const MyFilmsSection = () => {
   const { id } = useParams();
   const user = useUser();
   const list = user.data?.lists.find((list) => list.id === Number(id)) as List;
-  const [currentListFilms, setCurrentListFilms] = useState<Film[] | undefined>(list?.films);
+  const [currentListFilms, setCurrentListFilms] = useState<Film[] | undefined>(
+    list?.films
+  );
 
   const handleListFilmChange = (selectedFilm: string) => {
-    const newFilm = FILMS.results.find((film) => film.title === selectedFilm) as Film;
+    const newFilm = FILMS.results.find(
+      (film) => film.title === selectedFilm
+    ) as Film;
     setCurrentListFilms((films) => {
-        const updatedFilms = [...(films ?? []), newFilm];
-        list.films = updatedFilms as Film[];
-        return updatedFilms;
+      const updatedFilms = [...(films ?? []), newFilm];
+      list.films = updatedFilms as Film[];
+      return updatedFilms;
     });
 
     notifications.show({
-        color: 'green',
-        title: 'Éxito',
-        message: 'Película agregada a la lista correctamente'
-      });
-};
+      color: "green",
+      title: "Éxito",
+      message: "Película agregada a la lista correctamente",
+    });
+  };
 
- 
+  const handleDeleteFilm = (id: number) => {
+    setCurrentListFilms((films) => {
+      const updatedFilms = films?.filter((film) => film.id !== id);
+      list.films = updatedFilms as Film[];
+      return updatedFilms;
+    });
+
+    notifications.show({
+      color: "green",
+      title: "Éxito",
+      message: "La película fue eliminada correctamente",
+    });
+  };
+
   return (
     <>
-      <HightlightAutocomplete label="Buscar y agregar película a la lista" handleFilmChange={handleListFilmChange} data={FILMS.results.map((film) => film.title)} />
-      <FilmsTable films={currentListFilms}/>
+      <HightlightAutocomplete
+        label="Buscar y agregar película a la lista"
+        handleFilmChange={handleListFilmChange}
+        data={FILMS.results.map((film) => film.title)}
+      />
+      <FilmsTable
+        films={currentListFilms}
+        handleDeleteFilm={handleDeleteFilm}
+      />
     </>
   );
 };

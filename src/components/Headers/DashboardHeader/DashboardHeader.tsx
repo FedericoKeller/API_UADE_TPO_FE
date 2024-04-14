@@ -41,7 +41,7 @@ export const DashboardHeader = ({ burger }: Props) => {
       <Drawer
         opened={opened}
         onClose={close}
-        title="Settings"
+        title="Configuración"
         position="right"
         transitionProps={{ duration: 0 }}
       >

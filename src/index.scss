@@ -1,8 +1,9 @@
 @use "../mixins" as *;
-@use "./assets/fonts/rubik.scss" as *;
+@use "./assets/fonts/inter.scss" as *;
 @import '@mantine/notifications/styles.css';
 @import '@mantine/carousel/styles.css';
-
+@import '@mantine/dates/styles.css'; //if using mantine date picker features
+@import 'mantine-react-table/styles.css'; //import MRT styles
 *,
 *::before,
 *::after {
@@ -49,12 +50,19 @@ html {
 }
 
 body {
-  font-family: "Rubik", sans-serif;
   box-sizing: border-box;
   margin: 0;
 }
 
 // Utils
+
+.link {
+  color: var(--desaturated-blue);
+  font-size: 0.8rem;
+  font-weight: 500;
+  justify-self: end;
+  cursor: pointer;
+}
 
 .u-center-text {
   text-align: center !important;

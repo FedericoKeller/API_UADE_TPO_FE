@@ -4,7 +4,13 @@ import * as yup from "yup";
 import { Form, InputField } from "@/components/Form";
 import { RouterLink } from "@/components/RouterLink";
 
-const schema = yup.object().shape({
+type RegisterValues = {
+  email: string;
+  password: string;
+  repeatPassword: string;
+};
+
+const schema = yup.object<RegisterValues>().shape({
   email: yup.string().required("Se requiere el email").email("Ingresa un email válido"),
   password: yup
     .string()
@@ -17,11 +23,7 @@ const schema = yup.object().shape({
     .oneOf([yup.ref("password")], "Las contraseñas no coinciden"),
 });
 
-type RegisterValues = {
-  email: string;
-  password: string;
-  repeatPassword: string;
-};
+
 
 type RegisterFormProps = {
   onSuccess: () => void;

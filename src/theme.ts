@@ -3,9 +3,9 @@ import cx from 'clsx';
 
 
 export const theme = createTheme({
-  fontFamily: 'Rubik',
+  fontFamily: 'Inter',
   headings: {
-		fontFamily: 'Rubik, sans-serif',
+		fontFamily: 'Inter, sans-serif',
 	},
   defaultRadius: 'md',
   components: {

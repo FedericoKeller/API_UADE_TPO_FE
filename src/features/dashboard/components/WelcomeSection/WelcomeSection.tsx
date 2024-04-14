@@ -1,9 +1,9 @@
 'use client'
 
 import { Flex, Grid, GridCol } from '@mantine/core';
-import { WelcomeCard } from '../WelcomeCard/WelcomeCard';
+import { WelcomeCard } from './components/WelcomeCard/WelcomeCard';
 
-export function DashboardContent() {
+export const WelcomeSection = () => {
 	return (
 		<Grid>
 			<GridCol span={{ sm: 12, md: 12, lg: 8 }}>

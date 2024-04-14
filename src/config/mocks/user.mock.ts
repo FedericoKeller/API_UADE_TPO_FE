@@ -7,6 +7,7 @@ export const USER: AuthUser = {
     lists: [{
         id: 1,
         title: 'Lista de seguimiento',
-        films: []
+        films: [],
+        canDelete: false
     }]
 }

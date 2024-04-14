@@ -1,2 +1,0 @@
-export { DashboardContent } from "./DashboardContent";
-

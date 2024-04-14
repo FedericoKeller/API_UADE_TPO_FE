@@ -4,4 +4,5 @@ export interface List {
     id: number;
     title: string;
     films: Film[];
+    canDelete?: boolean,
   }

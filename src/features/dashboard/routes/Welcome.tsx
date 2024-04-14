@@ -1,11 +1,11 @@
 import { DashboardLayout } from '../components/Layout';
-import { DashboardContent } from '../components/DashboardContent';
+import { WelcomeSection } from '../components/WelcomeSection';
 
 
-export const WelcomeBack = () => {
+export const Welcome = () => {
   return (
     <DashboardLayout title="Bienvenido">
-      <DashboardContent />
+      <WelcomeSection />
     </DashboardLayout>
   );
 };

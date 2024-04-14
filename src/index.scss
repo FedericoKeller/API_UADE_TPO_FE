@@ -56,6 +56,14 @@ body {
 
 // Utils
 
+.link {
+  color: var(--desaturated-blue);
+  font-size: 0.8rem;
+  font-weight: 500;
+  justify-self: end;
+  cursor: pointer;
+}
+
 .u-center-text {
   text-align: center !important;
 }

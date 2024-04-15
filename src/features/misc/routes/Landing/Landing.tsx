@@ -29,7 +29,6 @@ export const Landing = () => {
     <div className="netlist-landing">
       <HeaderSearch />
       <Container size="responsive">
-        {/* <main className="main"> */}
         <Container size="responsive">
           <HeroHeader />
         </Container>
@@ -42,8 +41,6 @@ export const Landing = () => {
           />
           {genres}
         </Container>
-
-        {/* </main> */}
       </Container>
 
       <Footer />

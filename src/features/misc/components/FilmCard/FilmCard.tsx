@@ -1,5 +1,5 @@
 import { useUser } from "@/lib/auth";
-import { Image, UnstyledButton } from "@mantine/core";
+import { Button, Image, UnstyledButton } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { Film } from "@/types/film.model";
 import { IconCheck, IconPlus } from "@tabler/icons-react";
@@ -62,7 +62,9 @@ export const FilmCard = ({ film }: FilmCardProps) => {
         {filmState ? <IconCheck /> : <IconPlus />}
       </UnstyledButton>
       <div className="front">
-        <Image className="thumbnail" src={IMAGE_URL} />
+        <a href="http://localhost:5173/description"> {/*hay que hacerlo dinamico */}
+          <Image className="thumbnail" src={IMAGE_URL} />
+        </a>
         <h3 className="name">{title}</h3>
       </div>
     </div>

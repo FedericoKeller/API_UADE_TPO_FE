@@ -5,11 +5,12 @@ import { Netlist } from "../../icons/Netlist.icon";
 import "./HeaderSearch.scss";
 import { RouterLink } from "@/components/RouterLink";
 import { useLogout, useUser } from "@/lib/auth";
-import { FILMS } from "@/config";
 import { HeaderSearchItem } from "./types/header.types";
+import { useFilms } from "@/api/getFilms";
 
 export const HeaderSearch = () => {
   const [opened, { toggle }] = useDisclosure(false);
+  const films = useFilms();
   const user = useUser();
 
   const logout = useLogout();
@@ -63,7 +64,7 @@ export const HeaderSearch = () => {
                 stroke={1.5}
               />
             }
-            data={FILMS.results.map((film) => film.title)}
+            data={films.data?.map((film) => film.title)}
           />
         </Group>
         <Group>

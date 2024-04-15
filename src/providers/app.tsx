@@ -1,10 +1,11 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import * as React from "react";
 import { queryClient } from "@/lib/react-query";
-import { Button, Loader } from "@mantine/core";
+import { Button } from "@mantine/core";
 import { ErrorBoundary } from "react-error-boundary";
 import { Notifications } from "@mantine/notifications";
 import { QueryClientProvider } from "@tanstack/react-query";
+import { Fallback } from "@/components/Fallback";
 
 const ErrorFallback = () => {
   return (
@@ -30,11 +31,7 @@ type AppProviderProps = {
 export const AppProvider = ({ children }: AppProviderProps) => {
   return (
     <React.Suspense
-      fallback={
-        <div className="flex items-center justify-center w-screen h-screen">
-          <Loader size={30}></Loader>
-        </div>
-      }
+      fallback={<Fallback />}
     >
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <QueryClientProvider client={queryClient}>

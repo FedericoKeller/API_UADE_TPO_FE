@@ -1,4 +1,4 @@
-import { useRoutes } from 'react-router-dom';
+mport { useRoutes } from 'react-router-dom';
 import { publicRoutes } from './public';
 import { Landing } from '@/features/misc';
 import { protectedRoutes } from './protected';

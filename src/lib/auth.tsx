@@ -61,4 +61,4 @@ export const { useUser, useLogin, useRegister, useLogout } = configureAuth<
   unknown,
   LoginCredentialsDTO,
   RegisterCredentialsDTO
->(authConfig);
+>(authConfig); 

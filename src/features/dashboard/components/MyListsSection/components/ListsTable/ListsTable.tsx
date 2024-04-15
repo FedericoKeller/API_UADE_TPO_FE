@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { useCustomTable } from "@/hooks/use-custom-table";
 import { List } from "@/types/list.model";
 import { MRT_Localization_ES } from "@/config/table";
-import { IconSend, IconTrash } from "@tabler/icons-react";
+import { IconSend, IconTrash, IconVideo } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { modals } from "@mantine/modals";
 
@@ -73,7 +73,7 @@ export const ListsTable = ({ data, handleDeleteList }: ListsTableProps) => {
             component="a"
             onClick={() => navigate(`/app/lists/${row.original.id}`)}
           >
-            <IconSend />
+            <IconVideo />
           </ActionIcon>
         </Tooltip>
         {row?.original.canDelete && (

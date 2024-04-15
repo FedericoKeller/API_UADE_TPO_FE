@@ -1,21 +1,22 @@
-import { Container } from "@mantine/core"
+import { Box, Container } from "@mantine/core"
 import { HeaderSearch } from "../../components/header/HeaderSearch"
-import { HeroHeader } from "../../components/hero-header/hero-header"
-import { MultiSelectValueRenderer } from "@/components/MultiSelectValueRenderer"
 import { Footer } from "../../components/footer/Footer"
 import { HeroDescription } from "../../components/hero-description/hero-description"
+import "./FilmDescription.scss";
+import { useParams } from "react-router-dom";
 
-export const Description = () => {
+export const FilmDescription = () => {
+    const { id } = useParams();
     return(
-        <div className="movie">
+        <Box>
             <HeaderSearch /> 
             <Container size="responsive">
                 <Container size="responsive">
-                    <HeroDescription/>
+                    <HeroDescription filmId={id}/>
                 </Container>
             </Container>
             <Footer /> 
-        </div>
+        </Box>
     )
 
 

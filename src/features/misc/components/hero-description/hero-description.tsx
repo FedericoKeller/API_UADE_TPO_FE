@@ -1,19 +1,17 @@
-import { Image, Container, Title, Button, Group, Text, List, ThemeIcon, rem } from '@mantine/core';
-import { IconCheck } from '@tabler/icons-react';
-import image from './image.svg';
-import classes from './hero-description.scss';
-import { Film } from '@/types/film.model';
-import { useNavigate } from 'react-router-dom';
+import { Image, Title, Text, List } from '@mantine/core';
 import './hero-description.scss'
+import { useFilms } from '@/api/getFilms';
+import { useGenres } from '@/api/getGenres';
 
 interface FilmCardProps {
-    film: Film;
+    filmId: string;
   }
 
-export const HeroDescription = () => {
-  
+export const HeroDescription = ({ filmId }: FilmCardProps) => {
+    const films = useFilms();
+    const genres = useGenres();
+    const film = films.data?.find((film) => film.id === Number(filmId));
 
-    //Esta todo hardcode hay que cambiarlo 
     return(
         <section className='description-root'>
             <div className='movie-img'>
@@ -22,7 +20,7 @@ export const HeroDescription = () => {
             <div className='movie-description'>
                 <div className='movie-title'>
                     <div className='movie-facts'>
-                        <Title order={2}> Dune: Part Two</Title>
+                        <Title order={2}>{film?.title}</Title>
                         <Text span className='certification'> TV-MA </Text>
                         <Text span>Action, Adventure, Drama</Text>
                     </div>
@@ -30,7 +28,7 @@ export const HeroDescription = () => {
                 <div className='movie-overview'>
                     <Title className='overview-title' order={3} > Overview</Title>
                     <div>
-                        <Text>Sigue el viaje mítico de Paul Atreides mientras se une a Chani y los Fremen en una guerra de venganza contra los conspiradores que destruyeron a su familia. Al enfrentarse a una elección entre el amor de su vida y el destino del universo conocido, Paul se esfuerza por evitar un futuro terrible que solo él puede prever.</Text>
+                        <Text>{film?.overview}</Text>
                     </div>
                     <List className="description-directors" type="ordered" listStyleType='none'>
                         <List.Item>

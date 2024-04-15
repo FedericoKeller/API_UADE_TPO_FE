@@ -11,6 +11,7 @@ import "./HeroDescription.scss";
 import { useFilms } from "@/api/getFilms";
 import { useGenres } from "@/api/getGenres";
 import { Film } from "@/types/film.model";
+import { Fallback } from "@/components/Fallback";
 
 interface FilmCardProps {
   filmId: string;
@@ -19,6 +20,9 @@ interface FilmCardProps {
 export const HeroDescription = ({ filmId }: FilmCardProps) => {
   const films = useFilms();
   const genres = useGenres();
+
+  if(films.isLoading || genres.isLoading) return <Fallback />;
+
   const film = films.data?.find((film) => film.id === Number(filmId)) as Film;
   const filmGenres = genres.data
     ?.filter((genre) => film.genre_ids.includes(genre.id))

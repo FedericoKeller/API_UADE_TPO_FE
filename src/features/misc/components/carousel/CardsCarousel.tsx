@@ -3,8 +3,8 @@ import { useMediaQuery } from "@mantine/hooks";
 import { Title, useMantineTheme, rem, Container } from "@mantine/core";
 import "./CardsCarousel.scss";
 import { FilmCard } from "../FilmCard";
-import { FILMS } from "@/config";
 import { Genre } from "@/types/genres.model";
+import { useFilms } from "@/api/getFilms";
 
 export interface CardsCarouselProps {
   genre: Genre;
@@ -12,9 +12,9 @@ export interface CardsCarouselProps {
 
 export const CardsCarousel = ({ genre }: CardsCarouselProps) => {
   const theme = useMantineTheme();
+  const films = useFilms();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
-  const slides = FILMS.results
-    .filter((film) => film.genre_ids.includes(genre.id))
+  const slides = films.data?.filter((film) => film.genre_ids.includes(genre.id))
     .map((item) => (
       <Carousel.Slide key={item.title}>
         <FilmCard film={item} />

@@ -1,4 +1,4 @@
-import { Container, Title, Text, Button } from '@mantine/core';
+import { Container, Title, Text, Button, Anchor } from '@mantine/core';
 import { useLogout, useUser } from "@/lib/auth";
 import './hero-header.scss';
 import { HeroHeaderItem } from './types/hero-header.types';
@@ -7,10 +7,8 @@ import { RouterLink } from '@/components/RouterLink';
 
 
   export const HeroHeader = () => {
-
-        
+  
     return (
-
       <Container size="responsive" className="hero-root">
         <div className="hero-inner">
           <div className="hero-content">
@@ -35,7 +33,8 @@ import { RouterLink } from '@/components/RouterLink';
               className="control"
               mt={40}
             >
-              Start now
+              Start Now
+
             </Button>
           </div>
         </div>

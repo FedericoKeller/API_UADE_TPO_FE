@@ -6,7 +6,9 @@ import "./FilmDescription.scss";
 import { useParams } from "react-router-dom";
 
 export const FilmDescription = () => {
-    const { id } = useParams();
+    const { id }  = useParams<{ id?: string }>();
+    if (!id) return null;
+    
     return(
         <Box>
             <HeaderSearch /> 

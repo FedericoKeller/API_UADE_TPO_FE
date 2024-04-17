@@ -6,10 +6,10 @@ import { CardsCarousel } from "../../components/Carousel/CardsCarousel";
 import { Container } from "@mantine/core";
 import { MultiSelectValueRenderer } from "@/components/MultiSelectValueRenderer";
 import { useState } from "react";
-import { CardsGrid } from "../../components/Grid/CardsGrid";
 import { useGenres } from "@/api/getGenres";
 import { Genre } from "@/types/genres.model";
 import { Fallback } from "@/components/Fallback";
+import { CardsGrid } from "../../components/grid/CardsGrid";
 
 export const Landing = () => {
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);

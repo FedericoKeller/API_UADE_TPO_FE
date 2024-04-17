@@ -1,12 +1,12 @@
-import { Footer } from "../../components/footer/Footer";
-import { HeaderSearch } from "../../components/header/HeaderSearch";
-import { HeroHeader } from "../../components/hero-header/hero-header";
+import { Footer } from "../../components/Footer/Footer";
+import { HeaderSearch } from "../../components/Header/components/HeaderSearch/HeaderSearch";
+import { HeroHeader } from "../../components/Header/components/HeroHeader/HeroHeader";
 import "./Landing.scss";
-import { CardsCarousel } from "../../components/carousel/CardsCarousel";
-import { Container, Loader } from "@mantine/core";
+import { CardsCarousel } from "../../components/Carousel/CardsCarousel";
+import { Container } from "@mantine/core";
 import { MultiSelectValueRenderer } from "@/components/MultiSelectValueRenderer";
 import { useState } from "react";
-import { CardsGrid } from "../../components/grid/CardsGrid";
+import { CardsGrid } from "../../components/Grid/CardsGrid";
 import { useGenres } from "@/api/getGenres";
 import { Genre } from "@/types/genres.model";
 import { Fallback } from "@/components/Fallback";
@@ -34,7 +34,6 @@ export const Landing = () => {
     <div className="netlist-landing">
       <HeaderSearch />
       <Container size="responsive">
-        {/* <main className="main"> */}
         <Container size="responsive">
           <HeroHeader />
         </Container>
@@ -47,8 +46,6 @@ export const Landing = () => {
           />
           {currentGenres}
         </Container>
-
-        {/* </main> */}
       </Container>
 
       <Footer />

@@ -1,6 +1,6 @@
 import { Genre } from "@/types/genres.model";
 import { Grid, Title } from "@mantine/core";
-import { FilmCard } from "../FilmCard";
+import { FilmCard } from "../Cards/FilmCard";
 import { useFilms } from "@/api/getFilms";
 
 export interface CardsGridProps {

@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import "./InputField.scss";
-import { Input, PasswordInput, TextInput } from "@mantine/core";
+import { ComboboxData, Input, PasswordInput, Select, TextInput } from "@mantine/core";
 
 
 type FieldWrapperProps = {
@@ -15,11 +15,15 @@ type FieldWrapperProps = {
 export type FieldWrapperPassThroughProps = Omit<FieldWrapperProps, 'className' | 'children'>;
 
 type InputFieldProps = FieldWrapperPassThroughProps & {
-  type?: "text" | "email" | "password";
+  type?: "text" | "email" | "password" | "select";
   className?: string;
   children?: React.ReactNode;
   registration: Partial<UseFormRegisterReturn>;
+  data?: ComboboxData;
 };
+
+
+
 
 export const InputField = (props: InputFieldProps) => {
   const {
@@ -29,7 +33,38 @@ export const InputField = (props: InputFieldProps) => {
     children,
     registration,
     error,
+    data
   } = props;
+
+  const renderOnType = (type: InputFieldProps["type"]) => {
+    switch (type) {
+      case "password":
+        return (
+          <PasswordInput
+            className={clsx("form__input", className)}
+            {...registration}
+          />
+        );
+      case "select":
+        return (
+          <Select
+            type={type}
+            className={clsx("form__input", className)}
+            data={data}
+            {...registration as Omit<InputFieldProps["registration"], "onChange">}
+          />
+        );
+      default:
+        return (
+          <TextInput
+            type={type}
+            className={clsx("form__input", className)}
+            {...registration}
+          />
+        );
+    }
+  }
+
   return (
     <Input.Wrapper className="form__group">
       <Input.Label className="form__label">
@@ -39,18 +74,7 @@ export const InputField = (props: InputFieldProps) => {
         {children}
       </Input.Label>
 
-      {type !== "password" ? (
-        <TextInput
-          type={type}
-          className={clsx("form__input", className)}
-          {...registration}
-        />
-      ) : (
-        <PasswordInput
-          className={clsx("form__input", className)}
-          {...registration}
-        />
-      )}
+      {renderOnType(type)}
 
       <Input.Error className="error">{error?.message}</Input.Error>
     </Input.Wrapper>

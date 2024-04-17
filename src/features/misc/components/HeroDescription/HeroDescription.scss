@@ -1,0 +1,67 @@
+@use "../../../../../mixins" as *;
+
+.description-root {
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  width: 100%;
+  border: 0;
+  text-decoration: none;
+  border-radius: var(--bi-radius, 0);
+  height: calc(40rem - 56px);
+  padding: 1.6rem;
+  color: #ffffff;
+}
+
+.movie-img {
+  align-self: center;
+  width: 100%;
+  max-height: 31.25rem;
+  max-width: 20.3rem;
+
+  @include respond(tab-land) {
+    width: 100%;
+  }
+
+  @include respond(tab-port) {
+    width: 100%;
+  }
+
+  @include respond(phone) {
+    width: 100%;
+  }
+}
+
+.movie-facts {
+  width: 100%;
+}
+
+.movie-title {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.overview-title {
+  margin: 8px 0 8px 0;
+}
+
+.movie-description {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: center;
+  box-sizing: border-box;
+  padding-left: 40px;
+}
+
+.movie-overview {
+  width: 100%;
+}
+
+.description-directors {
+  margin-top: 8px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}

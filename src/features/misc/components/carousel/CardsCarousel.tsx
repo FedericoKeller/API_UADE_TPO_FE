@@ -2,7 +2,7 @@ import { Carousel } from "@mantine/carousel";
 import { useMediaQuery } from "@mantine/hooks";
 import { Title, useMantineTheme, rem, Container } from "@mantine/core";
 import "./CardsCarousel.scss";
-import { FilmCard } from "../FilmCard";
+import { FilmCard } from "../Cards/FilmCard";
 import { Genre } from "@/types/genres.model";
 import { useFilms } from "@/api/getFilms";
 

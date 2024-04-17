@@ -1,0 +1,11 @@
+.saved {
+    font-weight: bold;
+    font-size: 1.125rem;
+    z-index: 1;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.65);
+    padding: 0.5rem 0.5rem 0.75rem;
+    clip-path: polygon(100% 0, 100% 100%, 50% 85%, 0 100%, 0% 0%);
+    transition: var(--transition);
+    cursor: pointer;
+}

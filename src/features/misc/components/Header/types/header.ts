@@ -9,4 +9,3 @@ export type HeaderSearchItem<T extends HeaderSearchAction = HeaderSearchAction> 
     onClick: () => void;
     type: T;
 };
-

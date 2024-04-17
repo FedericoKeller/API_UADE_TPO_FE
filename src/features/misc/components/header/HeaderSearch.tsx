@@ -10,6 +10,8 @@ import { useFilms } from "@/api/getFilms";
 import { HightlightAutocomplete } from "@/components/Autocomplete";
 import { useNavigate } from "react-router-dom";
 import { Fallback } from "@/components/Fallback";
+import { Logo } from "@/components/Logo";
+
 
 export const HeaderSearch = () => {
   const [opened, { toggle }] = useDisclosure(false);
@@ -60,7 +62,7 @@ export const HeaderSearch = () => {
     <header className="header">
       <div className="header-inner">
         <Group className="icon">
-          <Netlist width={40} height={40} />
+          <Logo />
           <Burger
             className="burger-container"
             opened={opened}

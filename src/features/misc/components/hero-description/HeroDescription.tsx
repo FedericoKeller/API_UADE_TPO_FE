@@ -21,7 +21,7 @@ export const HeroDescription = ({ filmId }: FilmCardProps) => {
   const films = useFilms();
   const genres = useGenres();
 
-  if(films.isLoading || genres.isLoading) return <Fallback />;
+  if (films.isLoading || genres.isLoading) return <Fallback />;
 
   const film = films.data?.find((film) => film.id === Number(filmId)) as Film;
   const filmGenres = genres.data
@@ -34,14 +34,12 @@ export const HeroDescription = ({ filmId }: FilmCardProps) => {
   const IMAGE_URL = `https://image.tmdb.org/t/p/w500/${poster_path}`;
 
   return (
-    <>
-      <AspectRatio ratio={16 / 9} maw={1200} mx="auto">
-        <BackgroundImage src={BACKDROP_URL}></BackgroundImage>
-        <Overlay
-          gradient="linear-gradient(250deg, rgba(130, 201, 30, 0) 0%, #001020 70%)"
-          opacity={0.85}
-        />
-      </AspectRatio>
+    <div
+      className="description-root"
+      style={{
+        backgroundImage: `linear-gradient(250deg, rgba(130, 201, 30, 0) 0%, #001020 70%), url(${BACKDROP_URL})`,
+      }}
+    >
       <div className="movie-img">
         <Image radius="md" src={IMAGE_URL}></Image>
       </div>
@@ -80,6 +78,6 @@ export const HeroDescription = ({ filmId }: FilmCardProps) => {
           </List>
         </div>
       </div>
-    </>
+    </div>
   );
 };

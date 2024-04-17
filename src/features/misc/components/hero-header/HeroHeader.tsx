@@ -1,13 +1,15 @@
 import { Container, Title, Text, Button } from '@mantine/core';
-import { useLogout, useUser } from "@/lib/auth";
-import './hero-header.scss';
-import { HeroHeaderItem } from './types/hero-header.types';
-import { RouterLink } from '@/components/RouterLink';
+import { useUser } from "@/lib/auth";
+import './HeroHeader.scss';
+import { useNavigate } from 'react-router-dom';
 
 
 
   export const HeroHeader = () => {
 
+    const navigate = useNavigate();
+    const user = useUser();
+    const path = user.data ? '/app/lists' : '/auth/login';
         
     return (
 
@@ -29,6 +31,7 @@ import { RouterLink } from '@/components/RouterLink';
               Find your favorite movie, serie and all details about them. Sign in up for free!
             </Text>
             <Button
+              onClick={() => navigate(path)}
               variant="gradient"
               gradient={{ from: 'blue', to: 'violet' }}
               size="xl"

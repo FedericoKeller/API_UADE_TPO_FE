@@ -33,6 +33,12 @@
 
   .name {
     text-align: center;
+    cursor: pointer;
+    transition: color .2s;
+
+    &:hover {
+      color: var(--color-blue);
+    }
   }
 
   .thumbnail {

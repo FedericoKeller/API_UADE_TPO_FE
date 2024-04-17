@@ -31,7 +31,7 @@ export const HightlightAutocomplete = ({ data, label, placeholder, handleFilmCha
   return (
     <Combobox
       onOptionSubmit={(optionValue) => {
-        handleFilmChange(optionValue);
+        handleFilmChange?.(optionValue);
         combobox.closeDropdown();
       }}
       withinPortal={false}
@@ -39,7 +39,7 @@ export const HightlightAutocomplete = ({ data, label, placeholder, handleFilmCha
     >
       <Combobox.Target>
         <TextInput
-          label={label || "Elegir opción..."}
+          label={label}
           placeholder={placeholder}
           value={value}
           onChange={(event) => {

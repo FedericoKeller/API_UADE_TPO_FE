@@ -7,13 +7,19 @@ import { RouterLink } from "@/components/RouterLink";
 import { useLogout, useUser } from "@/lib/auth";
 import { HeaderSearchItem } from "./types/header.types";
 import { useFilms } from "@/api/getFilms";
+import { HightlightAutocomplete } from "@/components/Autocomplete";
+import { useNavigate } from "react-router-dom";
+import { Fallback } from "@/components/Fallback";
 
 export const HeaderSearch = () => {
   const [opened, { toggle }] = useDisclosure(false);
   const films = useFilms();
   const user = useUser();
-
+  const navigate = useNavigate();
   const logout = useLogout();
+
+  if(films.isLoading) return <Fallback />;
+
 
   const onLogoutClick = () => {
       logout.mutate({});
@@ -43,6 +49,13 @@ export const HeaderSearch = () => {
     )
   );
 
+  const onFilmSelect = (film: string) => {
+    const filmId = films.data?.find((f) => f.title === film)?.id;
+    if (filmId) {
+      navigate(`/film/${filmId}`);
+    }
+  }
+
   return (
     <header className="header">
       <div className="header-inner">
@@ -55,16 +68,10 @@ export const HeaderSearch = () => {
             size="sm"
             hiddenFrom="sm"
           />
-          <Autocomplete
-            className="search"
-            placeholder="Search"
-            leftSection={
-              <IconSearch
-                style={{ width: rem(16), height: rem(16) }}
-                stroke={1.5}
-              />
-            }
-            data={films.data?.map((film) => film.title)}
+          <HightlightAutocomplete
+            handleFilmChange={onFilmSelect}
+            placeholder="Buscar película"
+            data={films.data?.map((film) => film.title) as string[]}
           />
         </Group>
         <Group>

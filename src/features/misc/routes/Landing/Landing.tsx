@@ -1,6 +1,6 @@
 import { Footer } from "../../components/footer/Footer";
 import { HeaderSearch } from "../../components/header/HeaderSearch";
-import { HeroHeader } from "../../components/hero-header/hero-header";
+import { HeroHeader } from "../../components/hero-header/HeroHeader";
 import "./Landing.scss";
 import { CardsCarousel } from "../../components/carousel/CardsCarousel";
 import { Container, Loader } from "@mantine/core";

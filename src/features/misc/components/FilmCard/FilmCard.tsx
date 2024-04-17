@@ -57,13 +57,13 @@ export const FilmCard = ({ film }: FilmCardProps) => {
   };
 
   return (
-    <Box style={{ cursor: 'pointer' }} className="film" onClick={() => navigate(`/film/${id}`)}>
+    <Box className="film">
       <UnstyledButton className="saved" onClick={onSaveClick}>
         {filmState ? <IconCheck /> : <IconPlus />}
       </UnstyledButton>
       <div className="front">
         <Image className="thumbnail" src={IMAGE_URL} />
-        <h3 className="name">{title}</h3>
+        <h3 className="name" onClick={() => navigate(`/film/${id}`)}>{title}</h3>
       </div>
     </Box>
   );

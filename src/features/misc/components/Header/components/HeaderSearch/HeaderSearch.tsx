@@ -1,6 +1,5 @@
 import { Group, Burger, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Netlist } from "../../../../icons/Netlist.icon";
 import "./HeaderSearch.scss";
 import { RouterLink } from "@/components/RouterLink";
 import { useLogout, useUser } from "@/lib/auth";
@@ -9,6 +8,7 @@ import { HightlightAutocomplete } from "@/components/Autocomplete";
 import { useNavigate } from "react-router-dom";
 import { Fallback } from "@/components/Fallback";
 import { HeaderSearchItem } from "../../types/header";
+import { Logo } from "@/components/Logo";
 
 
 export const HeaderSearch = () => {
@@ -60,7 +60,7 @@ export const HeaderSearch = () => {
     <header className="header">
       <div className="header-inner">
         <Group className="icon">
-          <Netlist width={40} height={40} />
+          <Logo />
           <Burger
             className="burger-container"
             opened={opened}

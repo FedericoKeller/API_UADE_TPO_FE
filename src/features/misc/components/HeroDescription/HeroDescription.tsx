@@ -3,15 +3,14 @@ import {
   Title,
   Text,
   List,
-  AspectRatio,
-  Overlay,
-  BackgroundImage,
+  Flex,
 } from "@mantine/core";
 import "./HeroDescription.scss";
 import { useFilms } from "@/api/getFilms";
 import { useGenres } from "@/api/getGenres";
 import { Film } from "@/types/film.model";
 import { Fallback } from "@/components/Fallback";
+import { SavedListButton } from "../Buttons/SavedListButton/SavedListButton";
 
 interface FilmCardProps {
   filmId: string;
@@ -45,14 +44,13 @@ export const HeroDescription = ({ filmId }: FilmCardProps) => {
       </div>
       <div className="movie-description">
         <div className="movie-title">
-          <div className="movie-facts">
-            <Title order={2}>{title}</Title>
-            <Text span className="certification">
-              {" "}
-              TV-MA{" "}
-            </Text>
-            <Text span>{filmGenres}</Text>
-          </div>
+          <Flex gap={20}>
+            <div className="movie-facts">
+              <Title order={2}>{title}</Title>
+              <Text span>{filmGenres}</Text>
+            </div>
+            <SavedListButton film={film} />
+          </Flex>
         </div>
         <div className="movie-overview">
           <Title className="overview-title" order={3}>

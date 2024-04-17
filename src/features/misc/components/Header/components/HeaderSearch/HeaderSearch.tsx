@@ -1,15 +1,15 @@
-import { Autocomplete, Group, Burger, rem, Text } from "@mantine/core";
+import { Group, Burger, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { IconSearch } from "@tabler/icons-react";
-import { Netlist } from "../../icons/Netlist.icon";
+import { Netlist } from "../../../../icons/Netlist.icon";
 import "./HeaderSearch.scss";
 import { RouterLink } from "@/components/RouterLink";
 import { useLogout, useUser } from "@/lib/auth";
-import { HeaderSearchItem } from "./types/header.types";
 import { useFilms } from "@/api/getFilms";
 import { HightlightAutocomplete } from "@/components/Autocomplete";
 import { useNavigate } from "react-router-dom";
 import { Fallback } from "@/components/Fallback";
+import { HeaderSearchItem } from "../../types/header";
+
 
 export const HeaderSearch = () => {
   const [opened, { toggle }] = useDisclosure(false);

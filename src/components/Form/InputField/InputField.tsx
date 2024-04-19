@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import "./InputField.scss";
-import { ComboboxData, Input, PasswordInput, Select, TextInput } from "@mantine/core";
+import { ComboboxData, Input, NativeSelect, PasswordInput, TextInput } from "@mantine/core";
 
 
 type FieldWrapperProps = {
@@ -47,11 +47,10 @@ export const InputField = (props: InputFieldProps) => {
         );
       case "select":
         return (
-          <Select
-            type={type}
+          <NativeSelect
             className={clsx("form__input", className)}
             data={data}
-            {...registration as Omit<InputFieldProps["registration"], "onChange">}
+            {...registration}
           />
         );
       default:

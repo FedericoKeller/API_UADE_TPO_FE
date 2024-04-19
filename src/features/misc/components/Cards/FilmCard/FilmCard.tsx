@@ -7,9 +7,10 @@ import { SavedListButton } from "../../Buttons/SavedListButton/SavedListButton";
 
 interface FilmCardProps {
   film: Film;
+  showLabel?: boolean;
 }
 
-export const FilmCard = ({ film }: FilmCardProps) => {
+export const FilmCard = ({ film, showLabel = true }: FilmCardProps) => {
   const navigate = useNavigate();
   const { title, poster_path, id } = film;
   const IMAGE_URL = `https://image.tmdb.org/t/p/w500/${poster_path}`;
@@ -19,7 +20,7 @@ export const FilmCard = ({ film }: FilmCardProps) => {
       <SavedListButton className="savedButton" film={film} />
       <div className="front">
         <Image className="thumbnail" src={IMAGE_URL} />
-        <h3 className="name" onClick={() => navigate(`/film/${id}`)}>{title}</h3>
+        {showLabel && <h3 className="name" onClick={() => navigate(`/film/${id}`)}>{title}</h3>}
       </div>
     </Box>
   );

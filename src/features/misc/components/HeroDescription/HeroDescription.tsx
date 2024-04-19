@@ -2,8 +2,8 @@ import {
   Image,
   Title,
   Text,
-  List,
   Flex,
+  Button,
 } from "@mantine/core";
 import "./HeroDescription.scss";
 import { useFilms } from "@/api/getFilms";
@@ -11,6 +11,13 @@ import { useGenres } from "@/api/getGenres";
 import { Film } from "@/types/film.model";
 import { Fallback } from "@/components/Fallback";
 import { SavedListButton } from "../Buttons/SavedListButton/SavedListButton";
+import { FilmCard } from "../Cards/FilmCard";
+import { useEffect } from "react";
+import { modals } from "@mantine/modals";
+import { AddToListModal } from "../ModalsContent/AddToListModal/AddToListModal";
+import { useUser } from "@/lib/auth";
+import { List } from "@/types/list.model";
+import { notifications } from "@mantine/notifications";
 
 interface FilmCardProps {
   filmId: string;
@@ -19,8 +26,34 @@ interface FilmCardProps {
 export const HeroDescription = ({ filmId }: FilmCardProps) => {
   const films = useFilms();
   const genres = useGenres();
+  const user = useUser();
 
-  if (films.isLoading || genres.isLoading) return <Fallback />;
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  if (films.isLoading || genres.isLoading || user.isLoading) return <Fallback />;
+
+
+  const onAddToList = () => {
+    const lists = user?.data?.lists;
+
+    const onSuccess = (listName: string) => {
+        const list = lists?.find(list => list.title === listName);
+        if(!list?.films?.some(currFilm => currFilm.id === film.id)) list?.films.push(film);
+        modals.closeAll();
+
+        notifications.show({
+          color: "green",
+          message: "¡Película agregada correctamente!"
+        })
+    }
+
+      modals.open({
+          title: "Agregar a lista",
+          children: <AddToListModal onSuccess={onSuccess} listsData={lists as List[]}/>
+      })
+  }
 
   const film = films.data?.find((film) => film.id === Number(filmId)) as Film;
   const filmGenres = genres.data
@@ -28,9 +61,9 @@ export const HeroDescription = ({ filmId }: FilmCardProps) => {
     .map((genre) => genre.name)
     .join(", ");
 
-  const { title, overview, poster_path, backdrop_path } = film;
+  const { title, overview, backdrop_path } = film;
   const BACKDROP_URL = `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${backdrop_path}`;
-  const IMAGE_URL = `https://image.tmdb.org/t/p/w500/${poster_path}`;
+  
 
   return (
     <div
@@ -40,40 +73,24 @@ export const HeroDescription = ({ filmId }: FilmCardProps) => {
       }}
     >
       <div className="movie-img">
-        <Image radius="md" src={IMAGE_URL}></Image>
+        <FilmCard showLabel={false} film={film}></FilmCard>
       </div>
       <div className="movie-description">
         <div className="movie-title">
-          <Flex gap={20}>
             <div className="movie-facts">
               <Title order={2}>{title}</Title>
               <Text span>{filmGenres}</Text>
             </div>
-            <SavedListButton film={film} />
-          </Flex>
         </div>
         <div className="movie-overview">
           <Title className="overview-title" order={3}>
             {" "}
-            Overview
+            Resumen
           </Title>
           <div>
             <Text>{overview}</Text>
           </div>
-          <List
-            className="description-directors"
-            type="ordered"
-            listStyleType="none"
-          >
-            <List.Item>
-              <Text>Nombre Director1</Text>
-              <Text>Creator</Text>
-            </List.Item>
-            <List.Item>
-              <Text>Nombre Director2</Text>
-              <Text>Creator</Text>
-            </List.Item>
-          </List>
+          <Button className="u-margin-top--small" onClick={onAddToList}>Agregar a lista</Button>
         </div>
       </div>
     </div>

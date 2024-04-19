@@ -5,7 +5,7 @@ import { modals } from "@mantine/modals";
 import * as yup from "yup";
 
 interface AddToListModal {
-    lists: List[];
+    listsData: List[];
     onSuccess: (listName: string) => void;
 }
 
@@ -15,10 +15,12 @@ type AddToListModalValues = {
   };
   
   const schema = yup.object<AddToListModalValues>().shape({
-    title: yup.string().required("Se requiere el título de la lista"),
+    listName: yup.string().required("Se requiere una lista."),
   });
 
-export const AddToListModal = ({ onSuccess, lists }: AddToListModal) => {        
+export const AddToListModal = ({ onSuccess, listsData }: AddToListModal) => {
+        const [ firstList, ...lists ] = listsData;
+
         return (
             <Form<AddToListModalValues, typeof schema>
             onSubmit={async (values) => {

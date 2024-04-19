@@ -47,12 +47,10 @@ export const SavedListButton = ({
         }
         updateFilmState();
       };
-    
-      const userFilms = user.data?.lists[0]?.films;
-    
+        
       useEffect(() => {
         updateFilmState();
-      }, [userFilms, updateFilmState]);
+      }, [updateFilmState]);
     
       const onSaveClick = () => {
         if (!user?.data) {

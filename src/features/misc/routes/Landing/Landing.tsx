@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useGenres } from "@/api/getGenres";
 import { Genre } from "@/types/genres.model";
 import { Fallback } from "@/components/Fallback";
-import { CardsGrid } from "../../components/grid/CardsGrid";
+import { CardsGrid } from "../../components/Grid/CardsGrid";
 
 export const Landing = () => {
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);

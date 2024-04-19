@@ -1,8 +1,6 @@
 import {
-  Image,
   Title,
   Text,
-  Flex,
   Button,
 } from "@mantine/core";
 import "./HeroDescription.scss";
@@ -10,7 +8,6 @@ import { useFilms } from "@/api/getFilms";
 import { useGenres } from "@/api/getGenres";
 import { Film } from "@/types/film.model";
 import { Fallback } from "@/components/Fallback";
-import { SavedListButton } from "../Buttons/SavedListButton/SavedListButton";
 import { FilmCard } from "../Cards/FilmCard";
 import { useEffect } from "react";
 import { modals } from "@mantine/modals";
@@ -18,6 +15,7 @@ import { AddToListModal } from "../ModalsContent/AddToListModal/AddToListModal";
 import { useUser } from "@/lib/auth";
 import { List } from "@/types/list.model";
 import { notifications } from "@mantine/notifications";
+import { useNavigate } from "react-router-dom";
 
 interface FilmCardProps {
   filmId: string;
@@ -27,6 +25,7 @@ export const HeroDescription = ({ filmId }: FilmCardProps) => {
   const films = useFilms();
   const genres = useGenres();
   const user = useUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -36,6 +35,8 @@ export const HeroDescription = ({ filmId }: FilmCardProps) => {
 
 
   const onAddToList = () => {
+    if(!user.data) return navigate("/auth/login");
+    
     const lists = user?.data?.lists;
 
     const onSuccess = (listName: string) => {
@@ -51,7 +52,7 @@ export const HeroDescription = ({ filmId }: FilmCardProps) => {
 
       modals.open({
           title: "Agregar a lista",
-          children: <AddToListModal onSuccess={onSuccess} listsData={lists as List[]}/>
+          children: <AddToListModal onSuccess={onSuccess} lists={lists as List[]}/>
       })
   }
 
@@ -73,7 +74,7 @@ export const HeroDescription = ({ filmId }: FilmCardProps) => {
       }}
     >
       <div className="movie-img">
-        <FilmCard showLabel={false} film={film}></FilmCard>
+        <FilmCard showLabel={false} showButton={false} film={film}></FilmCard>
       </div>
       <div className="movie-description">
         <div className="movie-title">

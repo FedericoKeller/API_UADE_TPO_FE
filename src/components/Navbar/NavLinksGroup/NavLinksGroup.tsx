@@ -9,7 +9,8 @@ import { RouterLink } from '@/components/RouterLink';
 interface LinksGroupProps {
 	icon: React.FC<any>;
 	label: string;
-	link?: string;
+	to?: string;
+	onClick?: () => void;
 	initiallyOpened?: boolean;
 	links?: { label: string; link: string }[];
 }
@@ -17,9 +18,10 @@ interface LinksGroupProps {
 export function NavLinksGroup({
 	icon: Icon,
 	label,
-	link,
+	to,
 	initiallyOpened,
 	links,
+	onClick
 }: LinksGroupProps) {
 	const { dir } = useDirection();
     const { pathname } = useLocation();
@@ -40,10 +42,11 @@ export function NavLinksGroup({
 
 	return (
 		<>
-			{link ? (
+			{to ? (
 				<RouterLink
-					to={link}
-					className={clsx("control", link === pathname && "activeControl")}
+					to={to}
+					onClick={onClick}
+					className={clsx("control", to === pathname && "activeControl")}
 				>
 					<Group gap={0} justify="space-between">
 						<Box style={{ display: 'flex', alignItems: 'center' }}>
@@ -57,6 +60,7 @@ export function NavLinksGroup({
 			) : (
 				<UnstyledButton
 					onClick={() => {
+						onClick?.();
 						if (hasLinks) {
 							setOpened(o => !o);
 							return;

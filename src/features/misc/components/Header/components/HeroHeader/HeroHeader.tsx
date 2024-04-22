@@ -2,6 +2,7 @@ import { Container, Title, Text, Button } from '@mantine/core';
 import { useUser } from "@/lib/auth";
 import './HeroHeader.scss';
 import { useNavigate } from 'react-router-dom';
+import { Fallback } from '@/components/Fallback';
 
 
 
@@ -9,6 +10,9 @@ import { useNavigate } from 'react-router-dom';
 
     const navigate = useNavigate();
     const user = useUser();
+    
+    if(user.isLoading) return <Fallback />;
+
     const path = user.data ? '/app/lists' : '/auth/login';
         
     return (

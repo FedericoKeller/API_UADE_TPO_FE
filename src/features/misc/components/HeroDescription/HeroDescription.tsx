@@ -2,6 +2,7 @@ import {
   Title,
   Text,
   Button,
+  Box,
 } from "@mantine/core";
 import "./HeroDescription.scss";
 import { useFilms } from "@/api/getFilms";
@@ -73,9 +74,9 @@ export const HeroDescription = ({ filmId }: FilmCardProps) => {
         backgroundImage: `linear-gradient(250deg, rgba(130, 201, 30, 0) 0%, #001020 70%), url(${BACKDROP_URL})`,
       }}
     >
-      <div className="movie-img">
+      <Box visibleFrom="sm" className="movie-img">
         <FilmCard showLabel={false} showButton={false} film={film}></FilmCard>
-      </div>
+      </Box>
       <div className="movie-description">
         <div className="movie-title">
             <div className="movie-facts">

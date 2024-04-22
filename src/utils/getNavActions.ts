@@ -1,8 +1,6 @@
 import { HeaderSearchItem } from "@/features/misc/components/Header/types/header";
 import { useLogout, useUser } from "@/lib/auth";
-import { queryClient } from "@/lib/react-query";
 import { IconLogin, IconDashboard, IconLogout } from "@tabler/icons-react";
-import { useQuery } from "@tanstack/react-query";
 
 export const useNavActions = () => {
   const logout = useLogout();

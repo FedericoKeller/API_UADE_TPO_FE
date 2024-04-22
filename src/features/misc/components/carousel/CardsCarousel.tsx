@@ -5,6 +5,7 @@ import "./CardsCarousel.scss";
 import { FilmCard } from "../Cards/FilmCard";
 import { Genre } from "@/types/genres.model";
 import { useFilms } from "@/api/getFilms";
+import { Fallback } from "@/components/Fallback";
 
 export interface CardsCarouselProps {
   genre: Genre;
@@ -14,6 +15,9 @@ export const CardsCarousel = ({ genre }: CardsCarouselProps) => {
   const theme = useMantineTheme();
   const films = useFilms();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+
+  if(films.isLoading) return <Fallback />;
+
   const slides = films.data?.filter((film) => film.genre_ids.includes(genre.id))
     .map((item) => (
       <Carousel.Slide key={item.title}>

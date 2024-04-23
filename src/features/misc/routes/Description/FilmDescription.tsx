@@ -1,6 +1,6 @@
 import { Box, Container } from "@mantine/core"
 import { HeaderSearch } from "../../components/Header/components/HeaderSearch/HeaderSearch"
-import { Footer } from "../../components/Footer/Footer"
+import { Footer } from "../../components/footer/Footer"
 import { HeroDescription } from "../../components/HeroDescription/HeroDescription"
 import "./FilmDescription.scss";
 import { useParams } from "react-router-dom";

@@ -5,6 +5,7 @@ import { protectedRoutes } from "./protected";
 import { useUser } from "@/lib/auth";
 import { AuthUser } from "@/features/auth";
 import { FilmDescription } from "@/features/misc/routes/Description/FilmDescription";
+import { MoviesGrid } from "@/features/misc/routes/MoviesGrid/MoviesGrid";
 
 export const AppRoutes = () => {
   const user = useUser({
@@ -16,6 +17,7 @@ export const AppRoutes = () => {
     { path: "/", element: <Landing /> },
     { path: "/film/:id", element: <FilmDescription /> },
     { path: "*", element: <Navigate to="." /> },
+    {path: "/movies/:id", element: <MoviesGrid />},
   ];
 
   const routes = user?.data ? protectedRoutes : publicRoutes;

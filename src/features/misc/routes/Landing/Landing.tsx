@@ -1,15 +1,15 @@
-import { Footer } from "../../components/Footer/Footer";
+import { Footer } from "../../components/footer/Footer";
 import { HeaderSearch } from "../../components/Header/components/HeaderSearch/HeaderSearch";
 import { HeroHeader } from "../../components/Header/components/HeroHeader/HeroHeader";
 import "./Landing.scss";
-import { CardsCarousel } from "../../components/Carousel/CardsCarousel";
+import { CardsCarousel } from "../../components/carousel/CardsCarousel";
 import { AppShell, Burger, Container, useMantineColorScheme, useMantineTheme } from "@mantine/core";
 import { MultiSelectValueRenderer } from "@/components/MultiSelectValueRenderer";
 import { useState } from "react";
 import { useGenres } from "@/api/getGenres";
 import { Genre } from "@/types/genres.model";
 import { Fallback } from "@/components/Fallback";
-import { CardsGrid } from "../../components/Grid/CardsGrid";
+import { CardsGrid } from "../../components/grid/CardsGrid";
 import { Navbar } from "@/components/Navbar";
 import { useDisclosure } from "@mantine/hooks";
 import { useNavActions } from "@/utils/getNavActions";

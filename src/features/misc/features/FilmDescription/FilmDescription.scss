@@ -8,8 +8,6 @@
   border: 0;
   text-decoration: none;
   border-radius: var(--bi-radius, 0);
-  height: calc(40rem - 56px);
-  padding: 1.6rem;
   color: #ffffff;
 }
 
@@ -17,9 +15,7 @@
   align-self: center;
 }
 
-.movie-facts {
-  width: 100%;
-}
+
 
 .movie-title {
   display: flex;

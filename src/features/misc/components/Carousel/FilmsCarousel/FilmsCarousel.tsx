@@ -1,17 +1,17 @@
 import { Carousel } from "@mantine/carousel";
 import { useMediaQuery } from "@mantine/hooks";
 import { Title, useMantineTheme, rem, Container } from "@mantine/core";
-import "./CardsCarousel.scss";
-import { FilmCard } from "../Cards/FilmCard";
+import "./FilmsCarousel.scss";
+import { FilmCard } from "../../Cards/FilmCard";
 import { Genre } from "@/types/genres.model";
 import { useFilms } from "@/api/getFilms";
 import { Fallback } from "@/components/Fallback";
 
-export interface CardsCarouselProps {
+export interface FilmsCarouselProps {
   genre: Genre;
 }
 
-export const CardsCarousel = ({ genre }: CardsCarouselProps) => {
+export const FilmsCarousel = ({ genre }: FilmsCarouselProps) => {
   const theme = useMantineTheme();
   const films = useFilms();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);

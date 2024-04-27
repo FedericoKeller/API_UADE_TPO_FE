@@ -44,8 +44,8 @@ export const HeaderSearch = ({ burger }: HeaderSearchProps) => {
     <div className="header">
       <div className="header-inner">
         <Group className="icon">
+        {burger && burger}
           <Logo />
-          {burger && burger}
           <HightlightAutocomplete
             handleFilmChange={onFilmSelect}
             placeholder="Buscar película"

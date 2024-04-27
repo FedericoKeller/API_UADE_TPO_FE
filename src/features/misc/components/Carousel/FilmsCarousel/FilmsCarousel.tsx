@@ -37,7 +37,7 @@ export const FilmsCarousel = ({ genre }: FilmsCarouselProps) => {
         <Carousel
           height="100%"
           slideSize={{ base: "20%", sm: "20%" }}
-          slideGap={{ base: rem(0.6), sm: "s" }}
+          slideGap={{ base: rem(10) }}
           align="start"
           slidesToScroll={mobile ? 4 : 5}
         >

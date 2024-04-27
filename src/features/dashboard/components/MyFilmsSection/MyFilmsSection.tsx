@@ -7,15 +7,19 @@ import { Film } from "@/types/film.model";
 import { List } from "@/types/list.model";
 import { notifications } from "@mantine/notifications";
 import { useFilms } from "../../../../api/getFilms";
+import { Fallback } from "@/components/Fallback";
 
 export const MyFilmsSection = () => {
   const { id } = useParams();
   const user = useUser();
   const films = useFilms();
+  
   const list = user.data?.lists.find((list) => list.id === Number(id)) as List;
   const [currentListFilms, setCurrentListFilms] = useState<Film[] | undefined>(
     list?.films
   );
+
+  if(films.isLoading || user.isLoading) return <Fallback />;
 
   const handleListFilmChange = (selectedFilm: string) => {
     const newFilm = films.data?.find(

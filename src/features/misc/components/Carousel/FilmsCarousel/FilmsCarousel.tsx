@@ -1,19 +1,23 @@
 import { Carousel } from "@mantine/carousel";
 import { useMediaQuery } from "@mantine/hooks";
 import { Title, useMantineTheme, rem, Container } from "@mantine/core";
-import "./CardsCarousel.scss";
-import { FilmCard } from "../Cards/FilmCard";
+import "./FilmsCarousel.scss";
+import { FilmCard } from "../../Cards/FilmCard";
 import { Genre } from "@/types/genres.model";
 import { useFilms } from "@/api/getFilms";
+import { Fallback } from "@/components/Fallback";
 
-export interface CardsCarouselProps {
+export interface FilmsCarouselProps {
   genre: Genre;
 }
 
-export const CardsCarousel = ({ genre }: CardsCarouselProps) => {
+export const FilmsCarousel = ({ genre }: FilmsCarouselProps) => {
   const theme = useMantineTheme();
   const films = useFilms();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+
+  if(films.isLoading) return <Fallback />;
+
   const slides = films.data?.filter((film) => film.genre_ids.includes(genre.id))
     .map((item) => (
       <Carousel.Slide key={item.title}>
@@ -33,7 +37,7 @@ export const CardsCarousel = ({ genre }: CardsCarouselProps) => {
         <Carousel
           height="100%"
           slideSize={{ base: "20%", sm: "20%" }}
-          slideGap={{ base: rem(0.6), sm: "s" }}
+          slideGap={{ base: rem(10) }}
           align="start"
           slidesToScroll={mobile ? 4 : 5}
         >

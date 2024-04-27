@@ -6,6 +6,7 @@ import { useCallback, useState, useEffect } from "react";
 import { useUser } from "@/lib/auth";
 import { Film } from "@/types/film.model";
 import { useNavigate } from "react-router-dom";
+import { Fallback } from "@/components/Fallback";
 
 interface SavedListButtonProps {
   className?: string;
@@ -18,7 +19,7 @@ export const SavedListButton = ({
   film
 }: SavedListButtonProps) => {
 
-    const user = useUser();
+    const user = useUser();    
     const navigate = useNavigate();
     const { id } = film;
 
@@ -47,12 +48,10 @@ export const SavedListButton = ({
         }
         updateFilmState();
       };
-    
-      const userFilms = user.data?.lists[0]?.films;
-    
+        
       useEffect(() => {
         updateFilmState();
-      }, [userFilms, updateFilmState]);
+      }, [updateFilmState]);
     
       const onSaveClick = () => {
         if (!user?.data) {
@@ -62,7 +61,8 @@ export const SavedListButton = ({
         }
       };
 
-      
+  if(user.isLoading) return <Fallback />;
+
   return (
     <UnstyledButton className={clsx("saved", className)} onClick={onSaveClick}>
       {filmState ? <IconCheck /> : <IconPlus />}

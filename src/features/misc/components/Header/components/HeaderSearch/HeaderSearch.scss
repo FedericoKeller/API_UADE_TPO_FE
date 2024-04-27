@@ -1,17 +1,8 @@
 @use "../../../../../../../mixins" as *;
 
-
 .header {
-  width: 100%;
-  position: fixed;
-  height: 56px;
-  margin-bottom: auto;
-  background-color: var(--mantine-color-body);
-  border-bottom: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-  padding-left: var(--mantine-spacing-md);
-  padding-right: var(--mantine-spacing-md);
-  z-index: 1001;
-  
+  padding: 5px var(--mantine-spacing-md);
+  z-index: 2;
 }
 
 .search {
@@ -28,11 +19,7 @@
   @include respond(phone) {
     max-width: 200px;
   }
-
-
 }
-
-
 
 .icon {
   padding-right: 3rem;
@@ -40,23 +27,18 @@
   @include respond(phone) {
     padding-right: 0rem;
   }
-
 }
 
 .burger-container {
   padding-right: 3rem;
 }
 
-
-
 .header-inner {
+  padding: 5px var(--mantine-spacing-md);
   width: 100%;
-  height: 56px;
   display: flex;
   justify-content: space-between;
   align-items: left;
-  
-
 }
 
 .link {
@@ -69,7 +51,9 @@
   font-weight: 500;
 
   &:hover {
-    background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+    background-color: light-dark(
+      var(--mantine-color-gray-0),
+      var(--mantine-color-dark-6)
+    );
   }
-
 }

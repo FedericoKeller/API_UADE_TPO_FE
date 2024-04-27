@@ -15,10 +15,10 @@ type AddToListModalValues = {
   };
   
   const schema = yup.object<AddToListModalValues>().shape({
-    title: yup.string().required("Se requiere el título de la lista"),
+    listName: yup.string().required("Se requiere una lista."),
   });
 
-export const AddToListModal = ({ onSuccess, lists }: AddToListModal) => {        
+export const AddToListModal = ({ onSuccess, lists }: AddToListModal) => {
         return (
             <Form<AddToListModalValues, typeof schema>
             onSubmit={async (values) => {

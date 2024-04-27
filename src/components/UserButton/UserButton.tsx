@@ -1,12 +1,14 @@
 import { Flex, Text, UnstyledButton } from '@mantine/core';
 import './UserButton.scss';
 import { useUser } from '@/lib/auth';
-import { IconLogout } from '@tabler/icons-react';
+import { Fallback } from '../Fallback';
 
 
 
 export const UserButton = () => {
     const user = useUser();
+
+	if(user.isLoading) return <Fallback />;
 
 	return (
 		<UnstyledButton className="user">

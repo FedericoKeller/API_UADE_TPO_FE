@@ -4,7 +4,7 @@ import { Landing } from "@/features/misc";
 import { protectedRoutes } from "./protected";
 import { useUser } from "@/lib/auth";
 import { AuthUser } from "@/features/auth";
-import { FilmDescription } from "@/features/misc/routes/Description/FilmDescription";
+import { FilmContainer } from "@/features/misc/routes/Container/FilmContainer";
 
 export const AppRoutes = () => {
   const user = useUser({
@@ -14,7 +14,7 @@ export const AppRoutes = () => {
 
   const commonRoutes = [
     { path: "/", element: <Landing /> },
-    { path: "/film/:id", element: <FilmDescription /> },
+    { path: "/film/:id", element: <FilmContainer /> },
     { path: "*", element: <Navigate to="." /> },
   ];
 

@@ -1,45 +1,29 @@
-import { Group, Burger, Text } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { Group, Text } from "@mantine/core";
 import "./HeaderSearch.scss";
 import { RouterLink } from "@/components/RouterLink";
-import { useLogout, useUser } from "@/lib/auth";
 import { useFilms } from "@/api/getFilms";
 import { HightlightAutocomplete } from "@/components/Autocomplete";
 import { useNavigate } from "react-router-dom";
 import { Fallback } from "@/components/Fallback";
-import { HeaderSearchItem } from "../../types/header";
 import { Logo } from "@/components/Logo";
+import { useNavActions } from "@/utils/getNavActions";
 
+interface HeaderSearchProps {
+  burger?: React.ReactNode;
+}
 
-export const HeaderSearch = () => {
-  const [opened, { toggle }] = useDisclosure(false);
+export const HeaderSearch = ({ burger }: HeaderSearchProps) => {
   const films = useFilms();
-  const user = useUser();
   const navigate = useNavigate();
-  const logout = useLogout();
+  const actions = useNavActions();
+
 
   if(films.isLoading) return <Fallback />;
 
 
-  const onLogoutClick = () => {
-      logout.mutate({});
-  }
-
-  const PUBLIC_ACTIONS = [
-    { to: "/auth/login", label: "Iniciar sesión", type: "link" },
-  ] as const satisfies readonly HeaderSearchItem[];
-
-  const PROTECTED_ACTIONS = [
-    { to: "/app/lists", label: "Watchlist", type: "link" },
-    { to: "/app/welcome", label: "Dashboard", type: "link" },
-    { label: "Cerrar sesión", type: "button", onClick: onLogoutClick },
-  ] as const satisfies readonly HeaderSearchItem[];
-
-  const actions = user?.data ? PROTECTED_ACTIONS : PUBLIC_ACTIONS;
-
   const items = actions.map((action, index) =>
     action.type === "link" ? (
-      <RouterLink key={index} to={action.to}>
+      <RouterLink key={index} to={action.to as string}>
         {action.label}
       </RouterLink>
     ) : (
@@ -57,17 +41,11 @@ export const HeaderSearch = () => {
   }
 
   return (
-    <header className="header">
+    <div className="header">
       <div className="header-inner">
         <Group className="icon">
+        {burger && burger}
           <Logo />
-          <Burger
-            className="burger-container"
-            opened={opened}
-            onClick={toggle}
-            size="sm"
-            hiddenFrom="sm"
-          />
           <HightlightAutocomplete
             handleFilmChange={onFilmSelect}
             placeholder="Buscar película"
@@ -80,6 +58,6 @@ export const HeaderSearch = () => {
           </Group>
         </Group>
       </div>
-    </header>
+    </div>
   );
 };

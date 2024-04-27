@@ -5,12 +5,15 @@ import { useUser } from "@/lib/auth";
 import { useState } from "react";
 import { List } from "@/types/list.model";
 import { notifications } from "@mantine/notifications";
+import { Fallback } from "@/components/Fallback";
 
 export const MyListsSection = () => {
   const user = useUser();
   const [currentLists, setCurrentLists] = useState<List[] | undefined>(
     user?.data?.lists
   );
+
+  if(user.isLoading) return <Fallback />;
 
   const handleListCreation = (title: string) => {
     const newList: List = {

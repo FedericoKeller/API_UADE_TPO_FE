@@ -7,6 +7,7 @@ import {
   Text,
   Title,
   Tooltip,
+  Image,
 } from "@mantine/core";
 import { MantineReactTable, MRT_ColumnDef } from "mantine-react-table";
 import { useMemo } from "react";
@@ -22,21 +23,21 @@ interface FilmsTableProps {
 }
 
 export const FilmsTable = ({ films, handleDeleteFilm }: FilmsTableProps) => {
-
-    const openDeleteModal = (id: number) =>
-        modals.openConfirmModal({
-          title: 'Borrar película',
-          centered: true,
-          children: (
-            <Text size="sm">
-              ¿Estás seguro de que deseas borrar esta película? Esta acción no se puede deshacer.
-            </Text>
-          ),
-          labels: { confirm: 'Borrar película', cancel: "Cancelar" },
-          confirmProps: { color: 'red' },
-          onCancel: () => modals.closeAll(),
-          onConfirm: () => handleDeleteFilm(id),
-        });
+  const openDeleteModal = (id: number) =>
+    modals.openConfirmModal({
+      title: "Borrar película",
+      centered: true,
+      children: (
+        <Text size="sm">
+          ¿Estás seguro de que deseas borrar esta película? Esta acción no se
+          puede deshacer.
+        </Text>
+      ),
+      labels: { confirm: "Borrar película", cancel: "Cancelar" },
+      confirmProps: { color: "red" },
+      onCancel: () => modals.closeAll(),
+      onConfirm: () => handleDeleteFilm(id),
+    });
 
   const columns = useMemo<MRT_ColumnDef<Film>[]>(
     () => [
@@ -58,9 +59,9 @@ export const FilmsTable = ({ films, handleDeleteFilm }: FilmsTableProps) => {
             <>
               <Tooltip
                 position="right"
-                label={`${(cell.getValue<number>() / 2).toFixed(
-                  2
-                )} (${cell.row.original.vote_count})`}
+                label={`${(cell.getValue<number>() / 2).toFixed(2)} (${
+                  cell.row.original.vote_count
+                })`}
               >
                 <Rating
                   fractions={Math.round(cell.getValue<number>())}
@@ -106,7 +107,10 @@ export const FilmsTable = ({ films, handleDeleteFilm }: FilmsTableProps) => {
     renderRowActions: ({ row }) => (
       <Box style={{ display: "flex", flexWrap: "nowrap", gap: "8px" }}>
         <Tooltip position="bottom" label="Borrar película">
-          <ActionIcon color="red" onClick={() => openDeleteModal(row.original.id)}>
+          <ActionIcon
+            color="red"
+            onClick={() => openDeleteModal(row.original.id)}
+          >
             <IconTrash />
           </ActionIcon>
         </Tooltip>
@@ -122,13 +126,13 @@ export const FilmsTable = ({ films, handleDeleteFilm }: FilmsTableProps) => {
           padding: "16px",
         }}
       >
-        <img
-          height={200}
+        <Image
+          radius="lg"
+          h={200}
           src={`https://image.tmdb.org/t/p/w500/${row.original.poster_path}`}
-          style={{ borderRadius: '50%' }}
         />
         <Box>
-            <Title order={3}>Resumen</Title>
+          <Title order={3}>Resumen</Title>
           <Text>{row.original.overview}</Text>
         </Box>
       </Box>

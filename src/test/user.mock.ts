@@ -3,6 +3,7 @@ import { AuthUser } from "@/features/auth";
 export const USER: AuthUser = {
   id: "123",
   email: "test@test.com",
+  username: "Test",
   role: "USER",
   lists: [
     {

@@ -15,7 +15,7 @@ export const UserButton = () => {
 			<Flex direction="row" gap={8}>
 				<div style={{ flex: 1 }}>
 					<Text size="sm" w={500}>
-                        {user?.data?.email}
+                        {user?.data?.username}
 					</Text>
 				</div>
 			</Flex>

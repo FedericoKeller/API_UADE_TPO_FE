@@ -59,7 +59,7 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                       error={formState.errors["password"]}
                       registration={register("password")}
                     >
-                      <RouterLink to="/">¿Olvidaste tu contraseña?</RouterLink>
+                      <RouterLink to="/auth/forgot-password">¿Olvidaste tu contraseña?</RouterLink>
                     </InputField>
                     <div>
                       <button className="btn btn--blue" type="submit">

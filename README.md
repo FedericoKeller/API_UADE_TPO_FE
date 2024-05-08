@@ -1,4 +1,4 @@
-# 🎬 Sitio de Recomendaciones de Películas
+# 🎬 Netlist: Sitio de Recomendaciones de Películas
 
 Una aplicación web responsiva que permite a los usuarios:
 
@@ -21,7 +21,7 @@ La aplicación contiene los siguientes modelos:
 
 Para configurar la aplicación, debes cumplir con los siguientes requisitos previos:
 
-- Node.js 14+
+- Node.js 18+
 
 Para instalar y ejecutar la aplicación localmente, ejecuta los siguientes comandos:
 
@@ -37,7 +37,7 @@ npm run dev
 Además de las funcionalidades básicas, el sitio puede incorporar las siguientes características adicionales para mejorar la usabilidad y la experiencia del usuario:
 - Recuperación de contraseña a través del correo electrónico.
 - Filtros de búsqueda avanzados (por ejemplo, por idioma, género, director, actores, etc.).
-- Integración con una API externa de bases de datos de películas [The Movie DB](https://developer.themoviedb.org/docs/getting-started).
+- Integración con una API externa de bases de datos de películas [(The Movie DB)](https://developer.themoviedb.org/docs/getting-started).
 
 
 ## Requisitos para el Desarrollo

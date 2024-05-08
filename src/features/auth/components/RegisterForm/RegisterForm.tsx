@@ -5,12 +5,14 @@ import { Form, InputField } from "@/components/Form";
 import { RouterLink } from "@/components/RouterLink";
 
 type RegisterValues = {
+  username: string;
   email: string;
   password: string;
   repeatPassword: string;
 };
 
 const schema = yup.object<RegisterValues>().shape({
+  username: yup.string().required("Se requiere el usuario"),
   email: yup.string().required("Se requiere el email").email("Ingresa un email válido"),
   password: yup
     .string()
@@ -52,6 +54,12 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
               >
                 {({ register, formState }) => (
                   <>
+                    <InputField
+                      type="text"
+                      label="Usuario"
+                      error={formState.errors["username"]}
+                      registration={register("username")}
+                    />
                     <InputField
                       type="email"
                       label="Email"

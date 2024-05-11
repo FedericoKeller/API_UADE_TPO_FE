@@ -3,12 +3,14 @@ import { Film } from "@/types/film.model";
 import { Image } from "@mantine/core";
 
 export interface CastGridProps {
-  cast: Film["cast"];
+  cast: Film["cast"] | Film["crew"];
+  department: string;
+  title: string;
 }
 
-export const CastGrid = ({ cast }: CastGridProps) => {
+export const CastGrid = ({ cast, department, title }: CastGridProps) => {
   const actors =
-    cast?.filter((person) => person.known_for_department === "Acting") || [];
+    cast?.filter((person) => person.known_for_department === department) || [];
 
   const cards = actors?.map((item) => {
     const IMAGE_URL = `https://image.tmdb.org/t/p/w500/${item.profile_path}`;
@@ -25,7 +27,7 @@ export const CastGrid = ({ cast }: CastGridProps) => {
           <Box>
             <Title order={4}>{item.name}</Title>
             <Text size="xs" c="dimmed">
-              {item.character}
+              {(item as any)?.character || (item as any)?.job}
             </Text>
           </Box>
         </Flex>
@@ -36,7 +38,7 @@ export const CastGrid = ({ cast }: CastGridProps) => {
   return (
     <div className="u-margin-top--small">
       <Title order={2} className="carousel-title">
-        Reparto principal
+        { title }
       </Title>
       {cards.length > 0 ? (
         <Grid className="u-margin-top--small">{cards}</Grid>

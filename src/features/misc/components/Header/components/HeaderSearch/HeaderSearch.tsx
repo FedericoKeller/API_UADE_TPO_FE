@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { Fallback } from "@/components/Fallback";
 import { Logo } from "@/components/Logo";
 import { useNavActions } from "@/utils/getNavActions";
+import { Film } from "@/types/film.model";
 
 interface HeaderSearchProps {
   burger?: React.ReactNode;
@@ -49,7 +50,7 @@ export const HeaderSearch = ({ burger }: HeaderSearchProps) => {
           <HightlightAutocomplete
             handleFilmChange={onFilmSelect}
             placeholder="Buscar película"
-            data={films.data?.map((film) => film.title) as string[]}
+            data={films.data as Film[]}
           />
         </Group>
         <Group>

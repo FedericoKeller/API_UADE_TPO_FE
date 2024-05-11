@@ -51,7 +51,8 @@ export const FilmDescription = ({ filmId }: FilmDescriptionProps) => {
         </Box>
       </Box>
       <Box className="movie-cast">
-        <CastGrid cast={film.cast} />
+        <CastGrid title="Reparto principal" department="Acting" cast={film.cast} />
+        <CastGrid title="Dirección" department="Directing" cast={film.crew} />
       </Box>
     </Box>
   );

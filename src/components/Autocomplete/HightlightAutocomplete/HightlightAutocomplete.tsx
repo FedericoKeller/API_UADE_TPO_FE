@@ -1,29 +1,44 @@
-import { useState } from 'react';
-import { Combobox, Highlight, TextInput, useCombobox } from '@mantine/core';
-
+import { useState } from "react";
+import { Combobox, Highlight, TextInput, useCombobox } from "@mantine/core";
+import { Film } from "@/types/film.model";
 
 interface AutocompleteHighlightProps {
-    data: string[];
-    label?: string;
-    placeholder?: string;
-    handleFilmChange?: (selectedFilm: string) => void;
+  data: Film[];
+  label?: string;
+  placeholder?: string;
+  handleFilmChange?: (selectedFilm: string) => void;
 }
 
-
-export const HightlightAutocomplete = ({ data, label, placeholder, handleFilmChange }: AutocompleteHighlightProps) => {
+export const HightlightAutocomplete = ({
+  data,
+  label,
+  placeholder,
+  handleFilmChange,
+}: AutocompleteHighlightProps) => {
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
-  const [value, setValue] = useState('');
-  const shouldFilterOptions = !data.some((item) => item === value);
+  const [value, setValue] = useState("");
+  const shouldFilterOptions =
+    !data.some((item) => item.title === value) ||
+    data.some(
+      (item) =>
+        item.cast?.map((cast) => cast.name).includes(value) ||
+        item.crew?.map((crew) => crew.name).includes(value)
+    );
   const filteredOptions = shouldFilterOptions
-    ? data.filter((item) => item.toLowerCase().includes(value.toLowerCase().trim()))
+    ? data.filter(
+        (item) =>
+          item.title.toLowerCase().includes(value.toLowerCase().trim()) ||
+          item.cast?.map((cast) => cast.name).includes(value) ||
+          item.crew?.map((crew) => crew.name).includes(value)
+      )
     : data;
 
   const options = filteredOptions.map((item) => (
-    <Combobox.Option value={item} key={item}>
+    <Combobox.Option value={item.title} key={item.title}>
       <Highlight highlight={value} size="sm">
-        {item}
+        {item.title}
       </Highlight>
     </Combobox.Option>
   ));
@@ -45,7 +60,8 @@ export const HightlightAutocomplete = ({ data, label, placeholder, handleFilmCha
           value={value}
           onChange={(event) => {
             setValue(event.currentTarget.value);
-            if(event.currentTarget.value === "") return combobox.closeDropdown();
+            if (event.currentTarget.value === "")
+              return combobox.closeDropdown();
             combobox.updateSelectedOptionIndex();
             combobox.openDropdown();
           }}
@@ -55,9 +71,13 @@ export const HightlightAutocomplete = ({ data, label, placeholder, handleFilmCha
 
       <Combobox.Dropdown>
         <Combobox.Options>
-          {options.length === 0 ? <Combobox.Empty>Sin coincidencias</Combobox.Empty> : options}
+          {options.length === 0 ? (
+            <Combobox.Empty>Sin coincidencias</Combobox.Empty>
+          ) : (
+            options
+          )}
         </Combobox.Options>
       </Combobox.Dropdown>
     </Combobox>
   );
-}
+};

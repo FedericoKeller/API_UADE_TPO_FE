@@ -13,28 +13,39 @@ export const MyFilmsSection = () => {
   const { id } = useParams();
   const user = useUser();
   const films = useFilms();
-  
+
   const list = user.data?.lists.find((list) => list.id === Number(id)) as List;
   const [currentListFilms, setCurrentListFilms] = useState<Film[] | undefined>(
     list?.films
   );
 
-  if(films.isLoading || user.isLoading) return <Fallback />;
+  if (films.isLoading || user.isLoading) return <Fallback />;
 
   const handleListFilmChange = (selectedFilm: string) => {
     const newFilm = films.data?.find(
       (film) => film.title === selectedFilm
     ) as Film;
+    
     setCurrentListFilms((films) => {
+      if (list?.films?.some((currFilm) => currFilm.id === newFilm.id)) {
+        notifications.show({
+          color: "red",
+          message: "La película ya está en la lista",
+        });
+
+        return films;
+      }
+
       const updatedFilms = [...(films ?? []), newFilm];
       list.films = updatedFilms as Film[];
-      return updatedFilms;
-    });
 
-    notifications.show({
-      color: "green",
-      title: "Éxito",
-      message: "Película agregada a la lista correctamente",
+      notifications.show({
+        color: "green",
+        title: "Éxito",
+        message: "Película agregada a la lista correctamente",
+      });
+
+      return updatedFilms;
     });
   };
 
@@ -57,7 +68,7 @@ export const MyFilmsSection = () => {
       <HightlightAutocomplete
         label="Buscar y agregar película a la lista"
         handleFilmChange={handleListFilmChange}
-        data={films.data?.map((film) => film.title) as string[]}
+        data={films.data as Film[]}
       />
       <FilmsTable
         films={currentListFilms}

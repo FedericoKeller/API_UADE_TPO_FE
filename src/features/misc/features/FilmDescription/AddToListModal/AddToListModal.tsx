@@ -37,7 +37,7 @@ export const AddToListModal = ({ onSuccess, lists }: AddToListModal) => {
                   registration={register("listName")}
                 ></InputField>
                 <Button fullWidth type="submit" mt="md">
-                  Crear
+                  Agregar
                 </Button>
               </>
             )}

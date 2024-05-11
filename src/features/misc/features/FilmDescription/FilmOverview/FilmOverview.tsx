@@ -23,13 +23,21 @@ export const FilmOverview = ({ overview, film }: FilmOverviewProps) => {
     
         const onSuccess = (listName: string) => {
             const list = lists?.find(list => list.title === listName);
-            if(!list?.films?.some(currFilm => currFilm.id === film.id)) list?.films.push(film);
+            if(!list?.films?.some(currFilm => currFilm.id === film.id)) {
+              list?.films.push(film);
+              notifications.show({
+                color: "green",
+                message: "¡Película agregada correctamente!"
+              })
+            } else {
+              notifications.show({
+                color: "red",
+                message: "La película ya está en la lista"
+              })
+            }
             modals.closeAll();
     
-            notifications.show({
-              color: "green",
-              message: "¡Película agregada correctamente!"
-            })
+      
         }
     
           modals.open({
@@ -47,7 +55,7 @@ export const FilmOverview = ({ overview, film }: FilmOverviewProps) => {
           <div>
             <Text>{overview}</Text>
           </div>
-          <Button className="u-margin-top--small" onClick={onAddToList}>Agregar a lista</Button>
+          {user.data?.id && <Button className="u-margin-top--small" onClick={onAddToList}>Agregar a lista</Button>}
         </>
     )
 }

@@ -15,7 +15,7 @@ export const AppRoutes = () => {
   const commonRoutes = [
     { path: "/", element: <Landing /> },
     { path: "/film/:id", element: <FilmContainer /> },
-    { path: "*", element: <Navigate to="." /> },
+    // { path: "*", element: <Navigate to="." /> },
   ];
 
   const routes = user?.data ? protectedRoutes : publicRoutes;

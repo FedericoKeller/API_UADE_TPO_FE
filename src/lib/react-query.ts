@@ -24,3 +24,7 @@ export type MutationConfig<MutationFnType extends (...args: any) => any> = UseMu
   AxiosError,
   Parameters<MutationFnType>[0]
 >;
+
+export type ConfigOptions<QueryFnType extends (...args: any) => any> = {
+  config?: QueryConfig<QueryFnType>;
+};

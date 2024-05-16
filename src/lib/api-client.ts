@@ -1,30 +1,30 @@
 import Axios, { AxiosRequestConfig } from 'axios';
 
-import { API_URL } from '@/config';
-import storage from '@/utils/storage';
+import { env } from '@/config/env';
 import { notifications } from '@mantine/notifications';
+import storage from '@/utils/storage';
 
 function authRequestInterceptor(config: AxiosRequestConfig) {
   const token = storage.getToken();
   if (token) {
     config.headers.authorization = `${token}`;
   }
+  
   config.headers.Accept = 'application/json';
   return config;
 }
 
-export const axios = Axios.create({
-  baseURL: API_URL,
+export const api = Axios.create({
+  baseURL: env.API_URL,
 });
 
-axios.interceptors.request.use(authRequestInterceptor);
-axios.interceptors.response.use(
+api.interceptors.request.use(authRequestInterceptor);
+api.interceptors.response.use(
   (response) => {
     return response.data;
   },
   (error) => {
-    const message = error.response?.data?.message || error.message;
-    console.log(message);
+    const message = error.response?.data?.error || error.response?.data?.message;
     notifications.show({
       color: 'red',
       title: 'Error',

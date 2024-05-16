@@ -1,11 +1,11 @@
-import { axios } from "@/lib/axios";
+import { api } from "@/lib/api-client";
 
 import { AuthUser } from "../types";
 import { USER } from "@/config";
 
 export const getUser = (): Promise<AuthUser> => {
-  // return axios.get("/auth/me");
-  return new Promise((resolve) => {
-      resolve(USER);
-  })
+  return api.get("/user");
+  // return new Promise((resolve) => {
+  //     resolve(USER);
+  // })
 };

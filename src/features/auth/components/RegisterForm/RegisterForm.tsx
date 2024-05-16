@@ -3,12 +3,13 @@ import "./RegisterForm.scss";
 import * as yup from "yup";
 import { Form, InputField } from "@/components/Form";
 import { RouterLink } from "@/components/RouterLink";
+import { useRegister } from "@/lib/auth";
 
 type RegisterValues = {
   username: string;
   email: string;
   password: string;
-  repeatPassword: string;
+  passwordConfirm: string;
 };
 
 const schema = yup.object<RegisterValues>().shape({
@@ -18,7 +19,7 @@ const schema = yup.object<RegisterValues>().shape({
     .string()
     .required("Se requiere la contraseña")
     .min(6, "La contraseña debe tener al menos 6 carácteres"),
-  repeatPassword: yup
+    passwordConfirm: yup
     .string()
     .required("Ingresa la contraseña nuevamente")
     .min(6, "La contraseña debe tener al menos 6 carácteres")
@@ -32,6 +33,8 @@ type RegisterFormProps = {
 };
 
 export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
+  const register = useRegister();
+
   return (
     <div className="section-register">
       <div className="row">
@@ -48,6 +51,7 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
               </div>
               <Form<RegisterValues, typeof schema>
                 onSubmit={async (values) => {
+                  register.mutateAsync(values);
                   onSuccess();
                 }}
                 schema={schema}
@@ -75,8 +79,8 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
                     <InputField
                       type="password"
                       label="Repetir Contraseña"
-                      error={formState.errors["repeatPassword"]}
-                      registration={register("repeatPassword")}
+                      error={formState.errors["passwordConfirm"]}
+                      registration={register("passwordConfirm")}
                     ></InputField>
                     <div>
                       <button className="btn btn--blue" type="submit">

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { ExtractFnReturnType, QueryConfig } from "@/lib/react-query";
+import { ConfigOptions, ExtractFnReturnType } from "@/lib/react-query";
 import { GENRES } from "@/test/genres.mock";
 import { Genre } from "@/types/genres.model";
 
@@ -10,16 +10,11 @@ export const getGenres = (): Promise<Genre[]> => {
   });
 };
 
-type QueryFnType = typeof getGenres;
 
-type useGenreOptions = {
-  config?: QueryConfig<QueryFnType>;
-};
-
-export const useGenres = ({ config }: useGenreOptions = {}) => {
-  return useQuery<ExtractFnReturnType<QueryFnType>>({
+export const useGenres = <T extends typeof getGenres>({ config }: ConfigOptions<T> = {}) => {
+  return useQuery<ExtractFnReturnType<T>>({
     ...config,
     queryKey: ["genres"],
-    queryFn: () => getGenres(),
+    queryFn: () => getGenres() as Promise<ExtractFnReturnType<T>>,
   });
 };

@@ -1,3 +1,3 @@
-export * from "./credentials";
+export * from "./env";
 export * from "./navlinks";
 export * from "../test";

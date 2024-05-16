@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { axios } from "@/lib/axios";
-import { ExtractFnReturnType, QueryConfig } from "@/lib/react-query";
+import { ExtractFnReturnType, ConfigOptions } from "@/lib/react-query";
 import { Film } from "@/types/film.model";
 import { FILMS } from "@/config";
 
@@ -11,16 +10,10 @@ export const getFilms = (): Promise<Film[]> => {
   });
 };
 
-type QueryFnType = typeof getFilms;
-
-type useFilmsOptions = {
-  config?: QueryConfig<QueryFnType>;
-};
-
-export const useFilms = ({ config }: useFilmsOptions = {}) => {
-  return useQuery<ExtractFnReturnType<QueryFnType>>({
+export const useFilms = <T extends typeof getFilms>({ config }: ConfigOptions<T> = {}) => {
+  return useQuery<ExtractFnReturnType<T>>({
     ...config,
     queryKey: ["films"],
-    queryFn: () => getFilms(),
+    queryFn: () => getFilms() as Promise<ExtractFnReturnType<T>>,
   });
 };

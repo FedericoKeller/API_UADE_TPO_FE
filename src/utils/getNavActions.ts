@@ -7,7 +7,6 @@ export const useNavActions = () => {
   const user = useUser();
 
   const onLogoutClick = () => {
-    console.log('hola');
     logout.mutate({});
   };
 
@@ -22,7 +21,7 @@ export const useNavActions = () => {
 
   const PROTECTED_ACTIONS: HeaderSearchItem[] = [
     {
-      to: "/app/welcome",
+      to: "/app",
       label: "Dashboard",
       type: "link",
       icon: IconDashboard,

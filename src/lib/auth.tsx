@@ -20,6 +20,7 @@ async function handleUserResponse(data: UserResponse) {
 }
 
 async function userFn() {
+  console.log(storage.getToken());
   if (storage.getToken()) {
     const data = await getUser();
     return data;
@@ -35,7 +36,7 @@ async function loginFn(data: LoginCredentialsDTO) {
 
 async function registerFn(data: RegisterCredentialsDTO) {
   const response = await registerWithEmailAndPassword(data);
-  return response;
+  return response.user;
 }
 
 async function logoutFn() {

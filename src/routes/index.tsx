@@ -1,26 +1,43 @@
-import { Navigate, useRoutes } from "react-router-dom";
-import { publicRoutes } from "./public";
+import { Route, Routes } from "react-router-dom";
 import { Landing } from "@/features/misc";
-import { protectedRoutes } from "./protected";
-import { useUser } from "@/lib/auth";
-import { AuthUser } from "@/features/auth";
 import { FilmContainer } from "@/features/misc/routes/Container/FilmContainer";
+import { lazyImport } from "@/utils/lazyImport";
+import App from "@/App";
+import { ProtectedRoute } from "@/lib/protected-route";
+
+const { DashboardRoutes } = lazyImport(() => import('@/features/dashboard'), 'DashboardRoutes');
+const { AuthRoutes } = lazyImport(() => import('@/features/auth'), 'AuthRoutes');
+
 
 export const AppRoutes = () => {
-  const user = useUser({
-    placeholderData: {} as AuthUser,
-    staleTime: Infinity,
-  });
+  return (
+    <Routes>
+      <Route path="/" element={<Landing />}></Route>
+      <Route path="/film/:id" element={<FilmContainer />}></Route>
+      <Route path="/auth/*" element={<AuthRoutes />}></Route>
+      <Route
+        path="/app"
+        element={
+          <ProtectedRoute>
+            <App />
+          </ProtectedRoute>
+        }
+      ></Route>
+      <Route path="/app/*" element={<DashboardRoutes />}></Route>
+      <Route path="*" element={<Landing />} />
+    </Routes>
+  )
 
-  const commonRoutes = [
-    { path: "/", element: <Landing /> },
-    { path: "/film/:id", element: <FilmContainer /> },
-    // { path: "*", element: <Navigate to="." /> },
-  ];
+  // const commonRoutes = [
+  //   { path: "/", element: <Landing /> },
+  //   { path: "/film/:id", element: <FilmContainer /> },
+  //   { path: "*", element: <Navigate to="." /> },
+  // ];
 
-  const routes = user?.data ? protectedRoutes : publicRoutes;
 
-  const element = useRoutes([...routes, ...commonRoutes]);
+  // const routes = user?.data ? protectedRoutes : publicRoutes;
 
-  return <>{element}</>;
+  // const element = useRoutes([...routes, ...commonRoutes]);
+
+  // return <>{element}</>;
 };

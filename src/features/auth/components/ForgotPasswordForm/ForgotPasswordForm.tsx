@@ -4,6 +4,7 @@ import { Card } from "@mantine/core";
 import { Form } from "@/components/Form";
 import { InputField } from "@/components/Form";
 import { RouterLink } from "@/components/RouterLink";
+import { forgotPassword } from "../../api/forgotPassword";
 
 const schema = yup.object().shape({
   email: yup
@@ -37,6 +38,7 @@ export const ForgotPasswordForm = ({ onSuccess }: ForgotPasswordFormProps) => {
               </div>
               <Form<ForgotPasswordValues, typeof schema>
                 onSubmit={async (values) => {
+                  await forgotPassword(values);
                   onSuccess();
                 }}
                 schema={schema}

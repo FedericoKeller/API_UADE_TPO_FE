@@ -1,26 +1,55 @@
-import { Navigate, useRoutes } from "react-router-dom";
-import { publicRoutes } from "./public";
+import { Outlet, Route, Routes } from "react-router-dom";
 import { Landing } from "@/features/misc";
-import { protectedRoutes } from "./protected";
-import { useUser } from "@/lib/auth";
-import { AuthUser } from "@/features/auth";
 import { FilmContainer } from "@/features/misc/routes/Container/FilmContainer";
+import { lazyImport } from "@/utils/lazyImport";
+import { ProtectedRoute } from "@/lib/protected-route";
+import { Suspense } from "react";
+import { Fallback } from "@/components/Fallback";
+import { Welcome } from "@/features/dashboard/routes/Welcome";
+import { ProtectedAuthRoute } from "@/lib/protected-auth-route";
+
+const { DashboardRoutes } = lazyImport(
+  () => import("@/features/dashboard"),
+  "DashboardRoutes"
+);
+const { AuthRoutes } = lazyImport(
+  () => import("@/features/auth"),
+  "AuthRoutes"
+);
+
+const MainApp = () => {
+  return (
+    <Suspense fallback={<Fallback />}>
+      <Outlet />
+    </Suspense>
+  );
+};
 
 export const AppRoutes = () => {
-  const user = useUser({
-    placeholderData: {} as AuthUser,
-    staleTime: Infinity,
-  });
-
-  const commonRoutes = [
-    { path: "/", element: <Landing /> },
-    { path: "/film/:id", element: <FilmContainer /> },
-    // { path: "*", element: <Navigate to="." /> },
-  ];
-
-  const routes = user?.data ? protectedRoutes : publicRoutes;
-
-  const element = useRoutes([...routes, ...commonRoutes]);
-
-  return <>{element}</>;
+  return (
+    <Routes>
+      <Route path="/" element={<Landing />}></Route>
+      <Route path="/film/:id" element={<FilmContainer />}></Route>
+      <Route
+        path="/auth/*"
+        element={
+          <ProtectedAuthRoute>
+            <AuthRoutes />
+          </ProtectedAuthRoute>
+        }
+      ></Route>
+      <Route
+        path="/app"
+        element={
+          <ProtectedRoute>
+            <MainApp />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="/app/" element={<Welcome />}></Route>
+        <Route path="/app/*" element={<DashboardRoutes />}></Route>
+      </Route>
+      <Route path="*" element={<Landing />} />
+    </Routes>
+  );
 };

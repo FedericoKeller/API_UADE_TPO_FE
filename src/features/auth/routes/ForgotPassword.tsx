@@ -8,7 +8,7 @@ export const ForgotPassword = () => {
 
   return (
     <Layout title="Cambiar Contraseña">
-      <ForgotPasswordForm onSuccess={() => navigate('/auth/forgot-password')} />
+      <ForgotPasswordForm onSuccess={() => navigate('/auth/login')} />
     </Layout>
   );
 };

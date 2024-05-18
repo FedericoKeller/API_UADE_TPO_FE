@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { Form, InputField } from "@/components/Form";
 import { RouterLink } from "@/components/RouterLink";
 import { useRegister } from "@/lib/auth";
+import { useSearchParams } from "react-router-dom";
 
 type RegisterValues = {
   username: string;
@@ -14,26 +15,31 @@ type RegisterValues = {
 
 const schema = yup.object<RegisterValues>().shape({
   username: yup.string().required("Se requiere el usuario"),
-  email: yup.string().required("Se requiere el email").email("Ingresa un email válido"),
+  email: yup
+    .string()
+    .required("Se requiere el email")
+    .email("Ingresa un email válido"),
   password: yup
     .string()
     .required("Se requiere la contraseña")
     .min(6, "La contraseña debe tener al menos 6 carácteres"),
-    passwordConfirm: yup
+  passwordConfirm: yup
     .string()
     .required("Ingresa la contraseña nuevamente")
     .min(6, "La contraseña debe tener al menos 6 carácteres")
     .oneOf([yup.ref("password")], "Las contraseñas no coinciden"),
 });
 
-
-
 type RegisterFormProps = {
   onSuccess: () => void;
 };
 
 export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
-  const register = useRegister();
+  const register = useRegister({
+    onSuccess
+  });
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo");
 
   return (
     <div className="section-register">
@@ -50,9 +56,8 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
                 <h2 className="register__header">Registro</h2>
               </div>
               <Form<RegisterValues, typeof schema>
-                onSubmit={async (values) => {
-                  register.mutateAsync(values);
-                  onSuccess();
+                onSubmit={(values) => {
+                  register.mutate(values);
                 }}
                 schema={schema}
               >
@@ -93,7 +98,15 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
               <div className="u-margin-top--small">
                 <h3 className="login">
                   ¿Ya tienes una cuenta?{" "}
-                  <RouterLink to="/auth/login" >Inicia sesión</RouterLink>
+                  <RouterLink
+                    to={`/auth/login${
+                      redirectTo
+                        ? `?redirectTo=${encodeURIComponent(redirectTo)}`
+                        : ""
+                    }`}
+                  >
+                    Inicia sesión
+                  </RouterLink>
                 </h3>
               </div>
             </Card>

@@ -5,6 +5,7 @@ import { Form } from "@/components/Form";
 import { InputField } from "@/components/Form";
 import { RouterLink } from "@/components/RouterLink";
 import { useLogin } from "@/lib/auth";
+import { useSearchParams } from "react-router-dom";
 
 const schema = yup.object().shape({
   email: yup
@@ -24,7 +25,12 @@ type LoginFormProps = {
 };
 
 export const LoginForm = ({ onSuccess }: LoginFormProps) => {
-  const login = useLogin();
+  const login = useLogin({
+    onSuccess,
+  });
+
+  const [searchParams] = useSearchParams();
+  const redirectTo = searchParams.get("redirectTo");
 
   return (
     <div className="section-login">
@@ -36,13 +42,12 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                 <h2 className="login__header">Iniciar sesión</h2>
               </div>
               <Form<LoginValues, typeof schema>
-                onSubmit={async (values) => {
-                  await login.mutateAsync(values);
-                  onSuccess();
+                onSubmit={(values) => {
+                  login.mutate(values);
                 }}
                 schema={schema}
                 options={{
-                  defaultValues: { email: "test@test.com", password: "123456" },
+                  defaultValues: { email: "federicokeller27@gmail.com", password: "123456" },
                 }}
               >
                 {({ register, formState }) => (
@@ -59,7 +64,9 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                       error={formState.errors["password"]}
                       registration={register("password")}
                     >
-                      <RouterLink to="/auth/forgot-password">¿Olvidaste tu contraseña?</RouterLink>
+                      <RouterLink to="/auth/forgot-password">
+                        ¿Olvidaste tu contraseña?
+                      </RouterLink>
                     </InputField>
                     <div>
                       <button className="btn btn--blue" type="submit">
@@ -72,7 +79,15 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
               <div className="u-margin-top--small">
                 <h3 className="register">
                   ¿No tienes una cuenta?{" "}
-                  <RouterLink to="/auth/register">Regístrate</RouterLink>
+                  <RouterLink
+                    to={`/auth/register${
+                      redirectTo
+                        ? `?redirectTo=${encodeURIComponent(redirectTo)}`
+                        : ""
+                    }`}
+                  >
+                    Regístrate
+                  </RouterLink>
                 </h3>
               </div>
             </Card>

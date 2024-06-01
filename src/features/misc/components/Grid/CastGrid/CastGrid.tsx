@@ -1,16 +1,16 @@
 import { Box, Flex, Grid, Title, Text, rem } from "@mantine/core";
-import { Film } from "@/types/film.model";
 import { Image } from "@mantine/core";
+import { Cast, Crew } from "tmdb-ts";
 
 export interface CastGridProps {
-  cast: Film["cast"] | Film["crew"];
+  credits: Cast[] | Crew[];
   department: string;
   title: string;
 }
 
-export const CastGrid = ({ cast, department, title }: CastGridProps) => {
+export const CastGrid = ({ credits, department, title }: CastGridProps) => {
   const actors =
-    cast?.filter((person) => person.known_for_department === department) || [];
+  credits?.filter((person) => person.known_for_department === department) || [];
 
   const cards = actors?.map((item) => {
     const IMAGE_URL = `https://image.tmdb.org/t/p/w500/${item.profile_path}`;
@@ -27,7 +27,7 @@ export const CastGrid = ({ cast, department, title }: CastGridProps) => {
           <Box>
             <Title order={4}>{item.name}</Title>
             <Text size="xs" c="dimmed">
-              {(item as any)?.character || (item as any)?.job}
+              {(item as Cast)?.character || (item as Crew)?.job}
             </Text>
           </Box>
         </Flex>

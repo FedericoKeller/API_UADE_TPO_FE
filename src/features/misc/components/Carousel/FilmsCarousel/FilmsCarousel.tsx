@@ -3,9 +3,9 @@ import { useMediaQuery } from "@mantine/hooks";
 import { Title, useMantineTheme, rem, Container } from "@mantine/core";
 import "./FilmsCarousel.scss";
 import { FilmCard } from "../../Cards/FilmCard";
-import { Genre } from "@/types/genres.model";
 import { useFilms } from "@/api/getFilms";
 import { Fallback } from "@/components/Fallback";
+import { Genre } from "tmdb-ts";
 
 export interface FilmsCarouselProps {
   genre: Genre;
@@ -16,9 +16,10 @@ export const FilmsCarousel = ({ genre }: FilmsCarouselProps) => {
   const films = useFilms();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
-  if(films.isLoading) return <Fallback />;
+  if (films.isLoading) return <Fallback />;
 
-  const slides = films.data?.filter((film) => film.genre_ids.includes(genre.id))
+  const slides = films.data
+    ?.filter((film) => film.genre_ids.includes(genre.id))
     .map((item) => (
       <Carousel.Slide key={item.title}>
         <FilmCard film={item} />
@@ -26,24 +27,25 @@ export const FilmsCarousel = ({ genre }: FilmsCarouselProps) => {
     ));
 
   return (
-    <Container className="carousel-column u-margin-top--small">
-      <div>
-        <Title order={2} className="carousel-title">
-          {" "}
-          {genre.name}{" "}
-        </Title>
-      </div>
-      <div className="carousel-slides u-margin-top--small">
-        <Carousel
-          height="100%"
-          slideSize={{ base: "20%", sm: "20%" }}
-          slideGap={{ base: rem(10) }}
-          align="start"
-          slidesToScroll={mobile ? 4 : 5}
-        >
-          {slides}
-        </Carousel>
-      </div>
-    </Container>
+    slides?.length ? (
+      <Container className="carousel-column u-margin-top--small">
+        <div>
+          <Title order={2} className="carousel-title">
+            {genre.name}
+          </Title>
+        </div>
+        <div className="carousel-slides u-margin-top--small">
+          <Carousel
+            height="100%"
+            slideSize={{ base: "20%", sm: "20%" }}
+            slideGap={{ base: rem(10) }}
+            align="start"
+            slidesToScroll={mobile ? 4 : 5}
+          >
+            {slides}
+          </Carousel>
+        </div>
+      </Container>
+    ) : null
   );
 };

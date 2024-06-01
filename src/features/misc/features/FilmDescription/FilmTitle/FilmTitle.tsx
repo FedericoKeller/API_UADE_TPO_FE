@@ -1,5 +1,3 @@
-import { useGenres } from "@/api/getGenres";
-import { Fallback } from "@/components/Fallback";
 import { Film } from "@/types/film.model";
 import { Title, Text, Box, Rating, Tooltip, rem } from "@mantine/core";
 
@@ -8,15 +6,9 @@ interface FilmTitleProps {
 }
 
 export const FilmTitle = ({ film }: FilmTitleProps) => {
-  const genres = useGenres();
   const { title } = film;
 
-  if (genres.isLoading) return <Fallback />;
-
-  const filmGenres = genres.data
-    ?.filter((genre) => film.genre_ids.includes(genre.id))
-    .map((genre) => genre.name)
-    .join(", ");
+  const filmGenres = film.genres.map(genre => genre.name).join(", ");
 
   return (
     <Box w="100%">

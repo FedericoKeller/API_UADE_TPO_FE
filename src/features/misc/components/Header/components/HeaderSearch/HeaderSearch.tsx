@@ -7,7 +7,8 @@ import { useNavigate } from "react-router-dom";
 import { Fallback } from "@/components/Fallback";
 import { Logo } from "@/components/Logo";
 import { useNavActions } from "@/utils/getNavActions";
-import { Film } from "@/types/film.model";
+import { MenuSearch, SearchOption } from "../../../Menu/SearchMenu/MenuSearch";
+import { useState } from "react";
 
 interface HeaderSearchProps {
   burger?: React.ReactNode;
@@ -17,7 +18,7 @@ export const HeaderSearch = ({ burger }: HeaderSearchProps) => {
   const films = useFilms();
   const navigate = useNavigate();
   const actions = useNavActions();
-
+  const [option, setOption] = useState<SearchOption>("title");
 
   if(films.isLoading) return <Fallback />;
 
@@ -34,11 +35,8 @@ export const HeaderSearch = ({ burger }: HeaderSearchProps) => {
     )
   );
 
-  const onFilmSelect = (film: string) => {
-    const filmId = films.data?.find((f) => f.title === film)?.id;
-    if (filmId) {
+  const onFilmSelect = (filmId: number) => {
       navigate(`/film/${filmId}`);
-    }
   }
 
   return (
@@ -50,8 +48,9 @@ export const HeaderSearch = ({ burger }: HeaderSearchProps) => {
           <HightlightAutocomplete
             handleFilmChange={onFilmSelect}
             placeholder="Buscar película"
-            data={films.data as Film[]}
+            searchOption={option}
           />
+          <MenuSearch handleOptionChange={setOption}/>
         </Group>
         <Group>
           <Group ml={50} gap={5} className="links" visibleFrom="sm">

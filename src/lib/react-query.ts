@@ -27,4 +27,5 @@ export type MutationConfig<MutationFnType extends (...args: any) => any> = UseMu
 
 export type ConfigOptions<QueryFnType extends (...args: any) => any> = {
   config?: QueryConfig<QueryFnType>;
+  data?: Record<string, unknown>;
 };

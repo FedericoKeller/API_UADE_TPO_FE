@@ -8,11 +8,14 @@ import { List } from "@/types/list.model";
 import { notifications } from "@mantine/notifications";
 import { useFilms } from "../../../../api/getFilms";
 import { Fallback } from "@/components/Fallback";
+import { MenuSearch, SearchOption } from "@/features/misc/components/Menu/SearchMenu/MenuSearch";
+import { Group } from "@mantine/core";
 
 export const MyFilmsSection = () => {
   const { id } = useParams();
   const user = useUser();
   const films = useFilms();
+  const [option, setOption] = useState<SearchOption>("title");
 
   const list = user.data?.lists.find((list) => list.id === Number(id)) as List;
   const [currentListFilms, setCurrentListFilms] = useState<Film[] | undefined>(
@@ -65,11 +68,14 @@ export const MyFilmsSection = () => {
 
   return (
     <>
-      <HightlightAutocomplete
-        label="Buscar y agregar película a la lista"
+    <Group>
+    <HightlightAutocomplete
         handleFilmChange={handleListFilmChange}
-        data={films.data as Film[]}
+        placeholder="Buscar y agregar película a la lista"
+        searchOption={option}
       />
+    <MenuSearch handleOptionChange={setOption}/>
+    </Group>
       <FilmsTable
         films={currentListFilms}
         handleDeleteFilm={handleDeleteFilm}

@@ -1,32 +1,30 @@
 import { Box } from "@mantine/core";
 import "./FilmDescription.scss";
-import { useFilms } from "@/api/getFilms";
 import { Film } from "@/types/film.model";
 import { Fallback } from "@/components/Fallback";
 import { FilmCard } from "../../components/Cards/FilmCard";
 import { useEffect } from "react";
-import { useUser } from "@/lib/auth";
 import { FilmOverview } from "./FilmOverview/FilmOverview";
 import { FilmTitle } from "./FilmTitle/FilmTitle";
 import { CastGrid } from "../../components/Grid/CastGrid/CastGrid";
+import { useFilm } from "@/api/getFilmById";
 
 interface FilmDescriptionProps {
   filmId: string;
 }
 
 export const FilmDescription = ({ filmId }: FilmDescriptionProps) => {
-  const films = useFilms();
-  const user = useUser();
+  const film = useFilm({ data: { id: filmId } });
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  if (films.isLoading || user.isLoading) return <Fallback />;
+  if (film.isLoading) return <Fallback />;
 
-  const film = films.data?.find((film) => film.id === Number(filmId)) as Film;
-
-  const { overview, backdrop_path } = film;
+  const filmData = film.data as Film;
+  console.log(filmData)
+  const { overview, backdrop_path } = filmData;
   const BACKDROP_URL = `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${backdrop_path}`;
 
   return (
@@ -39,20 +37,20 @@ export const FilmDescription = ({ filmId }: FilmDescriptionProps) => {
         }}
       >
         <Box visibleFrom="sm" className="movie-img">
-          <FilmCard showLabel={false} showButton={false} film={film}></FilmCard>
+          <FilmCard showLabel={false} showButton={false} film={filmData}></FilmCard>
         </Box>
         <Box className="movie-description">
             <Box className="movie-title">
-              <FilmTitle film={film} />
+              <FilmTitle film={filmData} />
             </Box>
           <Box className="movie-overview">
-            <FilmOverview overview={overview} film={film} />
+            <FilmOverview overview={overview} film={filmData} />
           </Box>
         </Box>
       </Box>
       <Box className="movie-cast">
-        <CastGrid title="Reparto principal" department="Acting" cast={film.cast} />
-        <CastGrid title="Dirección" department="Directing" cast={film.crew} />
+        <CastGrid title="Reparto principal" department="Acting" credits={filmData.cast} />
+        <CastGrid title="Dirección" department="Directing" credits={filmData.crew} />
       </Box>
     </Box>
   );

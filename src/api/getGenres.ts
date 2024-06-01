@@ -1,13 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { ConfigOptions, ExtractFnReturnType } from "@/lib/react-query";
-import { GENRES } from "@/test/genres.mock";
-import { Genre } from "@/types/genres.model";
+import { api } from "@/lib/api-client";
+import { Genre } from "tmdb-ts";
 
 export const getGenres = (): Promise<Genre[]> => {
-  //   return axios.get('/genres');
-  return new Promise((resolve) => {
-    resolve(GENRES.genres);
-  });
+  return api.get("/movie/genres");
 };
 
 

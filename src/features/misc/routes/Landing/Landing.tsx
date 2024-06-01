@@ -7,12 +7,12 @@ import { AppShell, Burger, Container, useMantineColorScheme, useMantineTheme } f
 import { MultiSelectValueRenderer } from "@/components/MultiSelectValueRenderer";
 import { useState } from "react";
 import { useGenres } from "@/api/getGenres";
-import { Genre } from "@/types/genres.model";
 import { Fallback } from "@/components/Fallback";
 import { CardsGrid } from "../../components/Grid/CardsGrid/CardsGrid";
 import { Navbar } from "@/components/Navbar";
 import { useDisclosure } from "@mantine/hooks";
 import { useNavActions } from "@/utils/getNavActions";
+import { Genre } from "tmdb-ts";
 
 export const Landing = () => {
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);

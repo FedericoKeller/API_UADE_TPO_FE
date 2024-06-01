@@ -1,19 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import { ExtractFnReturnType, ConfigOptions } from "@/lib/react-query";
 import { Film } from "@/types/film.model";
-import { FILMS } from "@/config";
+import { api } from "@/lib/api-client";
 
-export const getFilms = (): Promise<Film[]> => {
-  //   return axios.get('/films');
-  return new Promise((resolve) => {
-    resolve(FILMS.results);
-  });
+export const getPopularFilms = (): Promise<Film[]> => {
+    return api.get("/movie/popular");
 };
 
-export const useFilms = <T extends typeof getFilms>({ config }: ConfigOptions<T> = {}) => {
+export const useFilms = <T extends typeof getPopularFilms>({ config }: ConfigOptions<T> = {}) => {
   return useQuery<ExtractFnReturnType<T>>({
     ...config,
     queryKey: ["films"],
-    queryFn: () => getFilms() as Promise<ExtractFnReturnType<T>>,
+    queryFn: () => getPopularFilms() as Promise<ExtractFnReturnType<T>>,
   });
 };

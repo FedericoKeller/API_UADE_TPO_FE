@@ -10,12 +10,13 @@ import {
   useCombobox,
 } from "@mantine/core";
 import { SelectablePill } from "../SelectablePill";
+import { Genre } from "tmdb-ts";
 
 interface MultiSelectValueRendererProps {
-  data: Record<string, string | number>[];
+  data: Genre[];
   placeholder: string;
   className?: string;
-  onChange?: (value: string[] | number[]) => void;
+  onChange?: (value: number[]) => void;
 }
 
 export const MultiSelectValueRenderer = ({
@@ -29,9 +30,9 @@ export const MultiSelectValueRenderer = ({
     onDropdownOpen: () => combobox.updateSelectedOptionIndex("active"),
   });
 
-  const [value, setValue] = useState<string[]>([]);
+  const [value, setValue] = useState<number[]>([]);
 
-  const handleValueSelect = (val: string) => {
+  const handleValueSelect = (val: number) => {
     setValue((current) =>
       current.includes(val)
         ? current.filter((v) => v !== val)
@@ -39,14 +40,14 @@ export const MultiSelectValueRenderer = ({
     );
   }
 
-  const handleValueRemove = (val: string) =>
+  const handleValueRemove = (val: number) =>
     setValue((current) => current.filter((v) => v !== val));
 
   const values = value.map((item) => (
     <SelectablePill
       data={data}
       key={item}
-      id={item}
+      id={item.toString()}
       onRemove={() => handleValueRemove(item)}
     >
       {item}
@@ -57,15 +58,17 @@ export const MultiSelectValueRenderer = ({
       onChange?.(value);
   }, [onChange, value]) 
 
+  console.log(data)
+
   const options = data.map((item) => {
-    return (
+    return (  
       <Combobox.Option
-        value={item.id as string}
-        key={item.id}
-        active={value.includes(item.id as string)}
+        value={item.id as unknown as string}
+        key={item.id as unknown as string}
+        active={value.includes(item.id)}
       >
         <Group gap="sm">
-          {value.includes(item.id as string) ? <CheckIcon size={12} /> : null}
+          {value.includes(item.id) ? <CheckIcon size={12} /> : null}
           <Group gap={7}>
             <span>{item.name}</span>
           </Group>
@@ -78,7 +81,9 @@ export const MultiSelectValueRenderer = ({
     <Box className={className}>
       <Combobox
         store={combobox}
-        onOptionSubmit={handleValueSelect}
+        onOptionSubmit={(val) => {
+          handleValueSelect(Number.parseInt(val));
+        }}
         withinPortal={false}
       >
         <Combobox.DropdownTarget>

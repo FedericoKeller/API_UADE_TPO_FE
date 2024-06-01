@@ -4,7 +4,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/xOMo8BRK7PfcJv9JCnx7s5hj0PX.jpg",
-      "genre_ids": [
+      "genres": [
         878,
         12
       ],
@@ -3091,7 +3091,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/j3Z3XktmWB1VhsS8iXNcrR86PXi.jpg",
-      "genre_ids": [
+      "genres": [
         28,
         878,
         12,
@@ -4711,7 +4711,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/7ZP8HtgOIDaBs12krXgUIygqEsy.jpg",
-      "genre_ids": [
+      "genres": [
         878,
         28,
         14,
@@ -5770,7 +5770,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/qekky2LbtT1wtbD5MDgQvjfZQ24.jpg",
-      "genre_ids": [
+      "genres": [
         28,
         53
       ],
@@ -7443,7 +7443,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/oe7mWkvYhK4PLRNAVSvonzyUXNy.jpg",
-      "genre_ids": [
+      "genres": [
         28,
         53
       ],
@@ -8500,7 +8500,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/9c0lHTXRqDBxeOToVzRu0GArSne.jpg",
-      "genre_ids": [
+      "genres": [
         878,
         28
       ],
@@ -8740,7 +8740,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/pwGmXVKUgKN13psUjlhC9zBcq1o.jpg",
-      "genre_ids": [
+      "genres": [
         28,
         14
       ],
@@ -11433,7 +11433,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/e3gVl1gnxEFKLTF6pn6KRqUPi9K.jpg",
-      "genre_ids": [
+      "genres": [
         10749,
         18
       ],
@@ -11969,7 +11969,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/wUp0bUXaveR40ikBhDgWwNTijuD.jpg",
-      "genre_ids": [
+      "genres": [
         28,
         9648,
         53
@@ -12369,7 +12369,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/2C3CdVzINUm5Cm1lrbT2uiRstwX.jpg",
-      "genre_ids": [
+      "genres": [
         28,
         14,
         10752
@@ -13963,7 +13963,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/2KGxQFV9Wp1MshPBf8BuqWUgVAz.jpg",
-      "genre_ids": [
+      "genres": [
         16,
         28,
         12,
@@ -14686,7 +14686,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/xg4BiG7tV6nl8VG9nsSdh3jype.jpg",
-      "genre_ids": [
+      "genres": [
         12,
         28
       ],
@@ -14833,7 +14833,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/TGsfNWkASegCfAn6ED1b08a9O6.jpg",
-      "genre_ids": [
+      "genres": [
         27,
         9648,
         53
@@ -15400,7 +15400,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/lzWHmYdfeFiMIY4JaMmtR7GEli3.jpg",
-      "genre_ids": [
+      "genres": [
         878,
         12
       ],
@@ -19232,7 +19232,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/iqqMJwvPlovftBfdHVrpP2B1IxE.jpg",
-      "genre_ids": [
+      "genres": [
         28,
         80,
         53,
@@ -19939,7 +19939,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/rKmp0vm6PNaFA0g1bzM70eyWJ6I.jpg",
-      "genre_ids": [
+      "genres": [
         28
       ],
       "id": 873972,
@@ -20388,7 +20388,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/deLWkOLZmBNkm8p16igfapQyqeq.jpg",
-      "genre_ids": [
+      "genres": [
         14,
         28,
         12
@@ -21801,7 +21801,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/4woSOUD0equAYzvwhWBHIJDCM88.jpg",
-      "genre_ids": [
+      "genres": [
         28,
         27,
         53
@@ -22357,7 +22357,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/b4xaqpUZFUkgyJ1VcFEPXmDML34.jpg",
-      "genre_ids": [
+      "genres": [
         27,
         53
       ],
@@ -23339,7 +23339,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/tODsxqR6vm2LoypKSy1186RiTdL.jpg",
-      "genre_ids": [
+      "genres": [
         18,
         27,
         878,
@@ -25278,7 +25278,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/mt1RJGw7LvAoIGflIqYG87u84Xq.jpg",
-      "genre_ids": [
+      "genres": [
         18,
         10749,
         27
@@ -26603,7 +26603,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/atmII0hn3iQe3IWMBmIb3cc8EJZ.jpg",
-      "genre_ids": [
+      "genres": [
         18,
         27,
         10749
@@ -26623,7 +26623,7 @@ export const FILMS = {
     {
       "adult": false,
       "backdrop_path": "/zk2GE29fQHOC0mQemTwfM73hzH7.jpg",
-      "genre_ids": [
+      "genres": [
         18,
         10749,
         53,

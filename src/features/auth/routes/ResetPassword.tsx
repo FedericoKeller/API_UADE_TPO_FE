@@ -1,5 +1,5 @@
 
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Layout } from '../components/Layout';
 import { ResetPasswordForm } from '../components/ResetPasswordForm/ResetPasswordForm';
 import { useEffect, useState } from 'react';

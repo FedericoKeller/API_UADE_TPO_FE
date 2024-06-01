@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { useCustomTable } from "@/hooks/use-custom-table";
 import { List } from "@/types/list.model";
 import { MRT_Localization_ES } from "@/config/table";
-import { IconSend, IconTrash, IconVideo } from "@tabler/icons-react";
+import { IconTrash, IconVideo } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { modals } from "@mantine/modals";
 

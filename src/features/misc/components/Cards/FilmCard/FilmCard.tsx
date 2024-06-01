@@ -1,4 +1,4 @@
-import { Box, Image } from "@mantine/core";
+import { Box, Image, rem } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { Film } from "@/types/film.model";
 
@@ -27,7 +27,7 @@ export const FilmCard = ({ film, showLabel = true, showButton = true }: FilmCard
     <Box className="film">
       {showButton && user.data?.id && <SavedListButton className="savedButton" film={film} />}
       <div className="front">
-        <Image className="thumbnail" src={IMAGE_URL} />
+        <Image mih={rem(300)} className="thumbnail" src={IMAGE_URL} />
         {showLabel && <h3 className="name" onClick={() => navigate(`/film/${id}`)}>{title}</h3>}
       </div>
     </Box>

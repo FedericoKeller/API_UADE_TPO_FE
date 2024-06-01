@@ -1,16 +1,27 @@
-import { useState } from "react";
-import { Combobox, Highlight, TextInput, useCombobox } from "@mantine/core";
+import { useCallback, useState } from "react";
+import {
+  Center,
+  Combobox,
+  Highlight,
+  Loader,
+  TextInput,
+  useCombobox,
+} from "@mantine/core";
+import { SearchOption } from "@/features/misc/components/Menu/SearchMenu/MenuSearch";
 import { Film } from "@/types/film.model";
+import { searchFilms } from "@/api/searchFilms";
+import { debounce } from "lodash";
 
 interface AutocompleteHighlightProps {
-  data: Film[];
+  searchOption: SearchOption;
   label?: string;
   placeholder?: string;
-  handleFilmChange?: (selectedFilm: string) => void;
+  handleFilmChange?: (filmId: number | string) => void;
+  className?: string;
 }
 
 export const HightlightAutocomplete = ({
-  data,
+  searchOption,
   label,
   placeholder,
   handleFilmChange,
@@ -18,25 +29,28 @@ export const HightlightAutocomplete = ({
   const combobox = useCombobox({
     onDropdownClose: () => combobox.resetSelectedOption(),
   });
-  const [value, setValue] = useState("");
-  const shouldFilterOptions =
-    !data.some((item) => item.title === value) ||
-    data.some(
-      (item) =>
-        item.cast?.map((cast) => cast.name).includes(value) ||
-        item.crew?.map((crew) => crew.name).includes(value)
-    );
-  const filteredOptions = shouldFilterOptions
-    ? data.filter(
-        (item) =>
-          item.title.toLowerCase().includes(value.toLowerCase().trim()) ||
-          item.cast?.map((cast) => cast.name).includes(value) ||
-          item.crew?.map((crew) => crew.name).includes(value)
-      )
-    : data;
 
-  const options = filteredOptions.map((item) => (
-    <Combobox.Option value={item.title} key={item.title}>
+  const [value, setValue] = useState("");
+  const [films, setFilms] = useState<Film[]>([]);
+  const [loading, setLoading] = useState(false);
+  const DEBOUNCE_TIME = 250;
+
+  const fetchData = async () => {
+    setLoading(true);
+    const fetchedFilms = await searchFilms(searchOption, value);
+    console.log(fetchedFilms);
+    setFilms(fetchedFilms);
+    setLoading(false); 
+  };
+
+  const debouncedFetchData = debounce(fetchData, DEBOUNCE_TIME);
+
+  const debounceFn = useCallback(() => {
+    if (value) debouncedFetchData();
+  }, [value, debouncedFetchData]);
+
+  const options = films.map((item) => (
+    <Combobox.Option value={item.title} key={item.id}>
       <Highlight highlight={value} size="sm">
         {item.title}
       </Highlight>
@@ -46,7 +60,8 @@ export const HightlightAutocomplete = ({
   return (
     <Combobox
       onOptionSubmit={(optionValue) => {
-        handleFilmChange?.(optionValue);
+        const filmId = films.find((film) => film.title === optionValue)?.id;
+        handleFilmChange?.(filmId as number);
         setValue("");
         combobox.closeDropdown();
       }}
@@ -57,9 +72,11 @@ export const HightlightAutocomplete = ({
         <TextInput
           label={label}
           placeholder={placeholder}
+          style={{ flexGrow: 1 }}
           value={value}
           onChange={(event) => {
             setValue(event.currentTarget.value);
+            debounceFn();
             if (event.currentTarget.value === "")
               return combobox.closeDropdown();
             combobox.updateSelectedOptionIndex();
@@ -71,7 +88,11 @@ export const HightlightAutocomplete = ({
 
       <Combobox.Dropdown>
         <Combobox.Options>
-          {options.length === 0 ? (
+          {loading ? (
+            <Center p="md">
+              <Loader size={30} />
+            </Center>
+          ) : options.length === 0 ? (
             <Combobox.Empty>Sin coincidencias</Combobox.Empty>
           ) : (
             options

@@ -9,6 +9,7 @@ import { Logo } from "@/components/Logo";
 import { useNavActions } from "@/utils/getNavActions";
 import { MenuSearch, SearchOption } from "../../../Menu/SearchMenu/MenuSearch";
 import { useState } from "react";
+import { Film } from "@/types/film.model";
 
 interface HeaderSearchProps {
   burger?: React.ReactNode;
@@ -35,8 +36,8 @@ export const HeaderSearch = ({ burger }: HeaderSearchProps) => {
     )
   );
 
-  const onFilmSelect = (filmId: number) => {
-      navigate(`/film/${filmId}`);
+  const onFilmSelect = (film: Film) => {
+      navigate(`/film/${film.id}`);
   }
 
   return (

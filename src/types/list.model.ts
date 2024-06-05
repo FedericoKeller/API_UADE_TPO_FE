@@ -1,7 +1,7 @@
 import { Film } from "./film.model";
 
 export interface List {
-    id: number;
+    _id: number;
     title: string;
     films: Film[];
     canDelete?: boolean,

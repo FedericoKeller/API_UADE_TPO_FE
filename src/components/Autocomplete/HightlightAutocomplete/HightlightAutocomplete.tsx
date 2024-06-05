@@ -16,7 +16,7 @@ interface AutocompleteHighlightProps {
   searchOption: SearchOption;
   label?: string;
   placeholder?: string;
-  handleFilmChange?: (filmId: number | string) => void;
+  handleFilmChange?: (film: Film) => void;
   className?: string;
 }
 
@@ -60,8 +60,8 @@ export const HightlightAutocomplete = ({
   return (
     <Combobox
       onOptionSubmit={(optionValue) => {
-        const filmId = films.find((film) => film.title === optionValue)?.id;
-        handleFilmChange?.(filmId as number);
+        const film = films.find((film) => film.title === optionValue);
+        handleFilmChange?.(film as Film);
         setValue("");
         combobox.closeDropdown();
       }}

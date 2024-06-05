@@ -19,11 +19,11 @@ import { modals } from "@mantine/modals";
 
 interface FilmsTableProps {
   films: Film[] | undefined;
-  handleDeleteFilm: (id: number) => void;
+  handleDeleteFilm: (id: string) => void;
 }
 
 export const FilmsTable = ({ films, handleDeleteFilm }: FilmsTableProps) => {
-  const openDeleteModal = (id: number) =>
+  const openDeleteModal = (id: string) =>
     modals.openConfirmModal({
       title: "Borrar película",
       centered: true,
@@ -109,7 +109,7 @@ export const FilmsTable = ({ films, handleDeleteFilm }: FilmsTableProps) => {
         <Tooltip position="bottom" label="Borrar película">
           <ActionIcon
             color="red"
-            onClick={() => openDeleteModal(row.original.id)}
+            onClick={() => openDeleteModal(row.original._id)}
           >
             <IconTrash />
           </ActionIcon>

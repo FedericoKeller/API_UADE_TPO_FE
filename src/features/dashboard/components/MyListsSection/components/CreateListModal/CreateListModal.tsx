@@ -1,6 +1,7 @@
 import { Form, InputField } from "@/components/Form";
-import { Button } from "@mantine/core";
+import { Button, Center, Loader } from "@mantine/core";
 import { modals } from "@mantine/modals";
+import { useState } from "react";
 import * as yup from "yup";
 
 type CreateListModalValues = {
@@ -12,10 +13,11 @@ const schema = yup.object<CreateListModalValues>().shape({
 });
 
 type CreateListModalFormProps = {
-  onSuccess: (title: string) => void;
+  onSuccess: (title: string) => Promise<void>;
 };
 
 export const CreateListModal = ({ onSuccess }: CreateListModalFormProps) => {
+  const [ loading, setLoading ] = useState<boolean>(false);
   return (
     <Button
       style={{ marginLeft: "auto", maxWidth: "fit-content" }}
@@ -25,7 +27,10 @@ export const CreateListModal = ({ onSuccess }: CreateListModalFormProps) => {
           children: (
             <Form<CreateListModalValues, typeof schema>
               onSubmit={async (values) => {
-                onSuccess(values.title);
+                if(loading) return;
+                setLoading(true);
+                await onSuccess(values.title);
+                setLoading(false);
                 modals.closeAll();
               }}
               schema={schema}
@@ -39,7 +44,9 @@ export const CreateListModal = ({ onSuccess }: CreateListModalFormProps) => {
                     registration={register("title")}
                   ></InputField>
                   <Button fullWidth type="submit" mt="md">
-                    Crear
+                    {loading ? <Center p="md">
+                      <Loader size={30} />
+                    </Center> : 'Crear'} 
                   </Button>
                 </>
               )}

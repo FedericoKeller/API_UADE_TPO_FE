@@ -10,7 +10,7 @@ import { modals } from "@mantine/modals";
 
 interface ListsTableProps {
   data: List[] | undefined;
-  handleDeleteList: (id: number) => void;
+  handleDeleteList: (id: number) => Promise<void>;
 }
 
 export const ListsTable = ({ data, handleDeleteList }: ListsTableProps) => {
@@ -29,7 +29,7 @@ export const ListsTable = ({ data, handleDeleteList }: ListsTableProps) => {
       labels: { confirm: "Borrar lista", cancel: "Cancelar" },
       confirmProps: { color: "red" },
       onCancel: () => modals.closeAll(),
-      onConfirm: () => handleDeleteList(id),
+      onConfirm: async () => await handleDeleteList(id),
     });
 
   const columns = useMemo<MRT_ColumnDef<List>[]>(
@@ -71,7 +71,7 @@ export const ListsTable = ({ data, handleDeleteList }: ListsTableProps) => {
           <ActionIcon
             color="blue"
             component="a"
-            onClick={() => navigate(`/app/lists/${row.original.id}`)}
+            onClick={() => navigate(`/app/lists/${row.original._id}`)}
           >
             <IconVideo />
           </ActionIcon>
@@ -80,7 +80,7 @@ export const ListsTable = ({ data, handleDeleteList }: ListsTableProps) => {
           <Tooltip position="bottom" label="Borrar lista">
             <ActionIcon
               color="red"
-              onClick={() => openDeleteModal(row.original.id)}
+              onClick={() => openDeleteModal(row.original._id)}
             >
               <IconTrash />
             </ActionIcon>

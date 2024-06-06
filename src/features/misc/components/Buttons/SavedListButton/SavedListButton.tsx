@@ -6,6 +6,7 @@ import { useCallback, useState, useEffect } from "react";
 import { useUser } from "@/lib/auth";
 import { Film } from "@/types/film.model";
 import { Fallback } from "@/components/Fallback";
+import { addFilmToWatch } from "@/api/addToWatch";
 
 interface SavedListButtonProps {
   className?: string;
@@ -29,15 +30,10 @@ export const SavedListButton = ({ className, film }: SavedListButtonProps) => {
     setFilmState(isFilmIncluded(id));
   }, [id, isFilmIncluded]);
 
-  const onSaveClick = () => {
-    const index = user.data?.lists[0]?.films.findIndex(
-      (film) => film.id === id
-    ) as number;
-    if (index !== -1) {
-      user.data?.lists[0]?.films.splice(index, 1);
-    } else {
-      user.data?.lists[0]?.films.push(film);
-    }
+  const onSaveClick = async () => {
+    await addFilmToWatch(film);
+    await user.refetch();
+
     updateFilmState();
   };
 

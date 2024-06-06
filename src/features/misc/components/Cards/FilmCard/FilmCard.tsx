@@ -25,7 +25,7 @@ export const FilmCard = ({ film, showLabel = true, showButton = true }: FilmCard
 
   return (
     <Box className="film">
-      {showButton && user.data?.id && <SavedListButton className="savedButton" film={film} />}
+      {showButton && user.data?._id && <SavedListButton className="savedButton" film={film} />}
       <div className="front">
         <Image mih={rem(300)} className="thumbnail" src={IMAGE_URL} />
         {showLabel && <h3 className="name" onClick={() => navigate(`/film/${id}`)}>{title}</h3>}

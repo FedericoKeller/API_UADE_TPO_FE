@@ -1,7 +1,7 @@
 import { List } from "@/types/list.model";
 
 export type AuthUser = {
-    id: string;
+    _id: string;
     email: string;
     username: string;
     role: 'ADMIN' | 'USER';

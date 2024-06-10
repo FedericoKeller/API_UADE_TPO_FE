@@ -1,4 +1,4 @@
-import { Card } from "@mantine/core";
+import { Card, Center, Loader } from "@mantine/core";
 import "./RegisterForm.scss";
 import * as yup from "yup";
 import { Form, InputField } from "@/components/Form";
@@ -57,39 +57,46 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
               </div>
               <Form<RegisterValues, typeof schema>
                 onSubmit={(values) => {
+                  if(register.isPending) return; 
                   register.mutate(values);
                 }}
                 schema={schema}
               >
-                {({ register, formState }) => (
+                {({ register: formRegister, formState }) => (
                   <>
                     <InputField
                       type="text"
                       label="Usuario"
                       error={formState.errors["username"]}
-                      registration={register("username")}
+                      registration={formRegister("username")}
                     />
                     <InputField
                       type="email"
                       label="Email"
                       error={formState.errors["email"]}
-                      registration={register("email")}
+                      registration={formRegister("email")}
                     />
                     <InputField
                       type="password"
                       label="Contraseña"
                       error={formState.errors["password"]}
-                      registration={register("password")}
+                      registration={formRegister("password")}
                     ></InputField>
                     <InputField
                       type="password"
                       label="Repetir Contraseña"
                       error={formState.errors["passwordConfirm"]}
-                      registration={register("passwordConfirm")}
+                      registration={formRegister("passwordConfirm")}
                     ></InputField>
                     <div>
                       <button className="btn btn--blue" type="submit">
-                        Continuar
+                      {!register.isPending ? (
+                          "Continuar"
+                        ) : (
+                          <Center>
+                            <Loader color="white" size={30} />
+                          </Center>
+                        )}
                       </button>
                     </div>
                   </>

@@ -1,8 +1,9 @@
-import { Card } from "@mantine/core";
+import { Card, Center, Loader } from "@mantine/core";
 import "./ResetPasswordForm.scss";
 import * as yup from "yup";
 import { Form, InputField } from "@/components/Form";
 import { resetPassword } from "../../api/resetPassword";
+import { useState } from "react";
 
 type ResetPasswordValues = {
   password: string;
@@ -28,6 +29,8 @@ type ResetPasswordFormProps = {
 
 export const ResetPasswordForm = ({ onSuccess, email }: ResetPasswordFormProps) => {
 
+  const [ isLoading, setLoading ] = useState<boolean>(false);
+
   return (
     <div className="section-reset-password">
       <div className="row">
@@ -44,7 +47,10 @@ export const ResetPasswordForm = ({ onSuccess, email }: ResetPasswordFormProps) 
               </div>
               <Form<ResetPasswordValues, typeof schema>
                 onSubmit={async (values) => {
+                  if(isLoading) return;
+                  setLoading(true);
                   await resetPassword({ ...values, email });
+                  setLoading(false)
                   onSuccess();
                 }}
                 schema={schema}
@@ -65,7 +71,13 @@ export const ResetPasswordForm = ({ onSuccess, email }: ResetPasswordFormProps) 
                     ></InputField>
                     <div>
                       <button className="btn btn--soft-blue" type="submit">
-                        Continuar
+                      {!isLoading ? (
+                          "Continuar"
+                        ) : (
+                          <Center>
+                            <Loader color="white" size={30} />
+                          </Center>
+                        )}
                       </button>
                     </div>
                   </>

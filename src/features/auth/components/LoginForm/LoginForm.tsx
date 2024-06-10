@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import "./LoginForm.scss";
-import { Card } from "@mantine/core";
+import { Card, Center, Loader } from "@mantine/core";
 import { Form } from "@/components/Form";
 import { InputField } from "@/components/Form";
 import { RouterLink } from "@/components/RouterLink";
@@ -43,11 +43,15 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
               </div>
               <Form<LoginValues, typeof schema>
                 onSubmit={(values) => {
+                  if(login.isPending) return;
                   login.mutate(values);
                 }}
                 schema={schema}
                 options={{
-                  defaultValues: { email: "federicokeller27@gmail.com", password: "123456" },
+                  defaultValues: {
+                    email: "federicokeller27@gmail.com",
+                    password: "123456",
+                  },
                 }}
               >
                 {({ register, formState }) => (
@@ -70,7 +74,13 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                     </InputField>
                     <div>
                       <button className="btn btn--blue" type="submit">
-                        Continuar
+                        {!login.isPending ? (
+                          "Continuar"
+                        ) : (
+                          <Center>
+                            <Loader color="white" size={30} />
+                          </Center>
+                        )}
                       </button>
                     </div>
                   </>

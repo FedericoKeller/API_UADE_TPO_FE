@@ -27,7 +27,7 @@ export const CreateListModal = ({ onSuccess }: CreateListModalFormProps) => {
           children: (
             <Form<CreateListModalValues, typeof schema>
               onSubmit={async (values) => {
-                if(loading) return;
+                if (loading) return;
                 setLoading(true);
                 await onSuccess(values.title);
                 setLoading(false);
@@ -44,9 +44,13 @@ export const CreateListModal = ({ onSuccess }: CreateListModalFormProps) => {
                     registration={register("title")}
                   ></InputField>
                   <Button fullWidth type="submit" mt="md">
-                    {loading ? <Center p="md">
-                      <Loader size={30} />
-                    </Center> : 'Crear'} 
+                    {loading ? (
+                      <Center p="md">
+                        <Loader size={30} />
+                      </Center>
+                    ) : (
+                      "Crear"
+                    )}
                   </Button>
                 </>
               )}

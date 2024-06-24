@@ -49,8 +49,9 @@ export const ResetPasswordForm = ({ onSuccess, email }: ResetPasswordFormProps) 
                 onSubmit={async (values) => {
                   if(isLoading) return;
                   setLoading(true);
-                  await resetPassword({ ...values, email });
-                  setLoading(false)
+                  const value = await resetPassword({ ...values, email });
+                  setLoading(false);
+                  if(!value) return;
                   onSuccess();
                 }}
                 schema={schema}

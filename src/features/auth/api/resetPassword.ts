@@ -29,13 +29,15 @@ export const resetPassword = async (
     data: ResetPasswordDTO
   ): Promise<unknown> => {
     return api.post('/auth/resetPassword', data).then(
-      (response) => {
+      () => {
         notifications.show({
           title: 'Contraseña cambiada',
           message: 'Tu contraseña ha sido cambiada exitosamente',
           color: 'green',
         })
-        return response;
+        return true;
       }
-    )
+    ).catch(() => {  
+      return false;
+    });
   };

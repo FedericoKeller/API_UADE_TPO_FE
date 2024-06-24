@@ -43,8 +43,9 @@ export const ForgotPasswordForm = ({ onSuccess }: ForgotPasswordFormProps) => {
                 onSubmit={async (values) => {
                   if(isLoading) return;
                   setLoading(true);
-                  await forgotPassword(values);
+                  const value = await forgotPassword(values);
                   setLoading(false);
+                  if(!value) return;
                   onSuccess();
                 }}
                 schema={schema}

@@ -47,12 +47,6 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
                   login.mutate(values);
                 }}
                 schema={schema}
-                options={{
-                  defaultValues: {
-                    email: "federicokeller27@gmail.com",
-                    password: "123456",
-                  },
-                }}
               >
                 {({ register, formState }) => (
                   <>

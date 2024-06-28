@@ -42,11 +42,6 @@ export const FilmsTable = ({ films, handleDeleteFilm }: FilmsTableProps) => {
   const columns = useMemo<MRT_ColumnDef<Film>[]>(
     () => [
       {
-        accessorKey: "id",
-        header: "ID",
-        size: 50,
-      },
-      {
         accessorKey: "title",
         header: "Título",
         size: 500,

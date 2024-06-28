@@ -10,13 +10,13 @@ import { modals } from "@mantine/modals";
 
 interface ListsTableProps {
   data: List[] | undefined;
-  handleDeleteList: (id: number) => Promise<void>;
+  handleDeleteList: (id: string) => Promise<void>;
 }
 
 export const ListsTable = ({ data, handleDeleteList }: ListsTableProps) => {
   const navigate = useNavigate();
 
-  const openDeleteModal = (id: number) =>
+  const openDeleteModal = (id: string) =>
     modals.openConfirmModal({
       title: "Borrar lista",
       centered: true,
@@ -34,11 +34,6 @@ export const ListsTable = ({ data, handleDeleteList }: ListsTableProps) => {
 
   const columns = useMemo<MRT_ColumnDef<List>[]>(
     () => [
-      {
-        accessorKey: "id",
-        header: "ID",
-        size: 50,
-      },
       {
         accessorKey: "title",
         header: "Título",
